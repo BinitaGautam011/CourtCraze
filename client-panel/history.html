@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Booking History</title>
+  <link rel="stylesheet" href="history.css" />
+</head>
+<body>
+
+  <!-- Dummy anchors to prevent scroll jumps -->
+  <div id="upcoming-anchor" class="tab-anchor"></div>
+  <div id="past-anchor" class="tab-anchor"></div>
+  <div id="cancelled-anchor" class="tab-anchor"></div>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <a class="dash" href="dashboard.html">Dashboard</a>
+    <div class="link">
+      <a href="book.html">Book</a>
+      <a href="history.html">History</a>
+      <a href="reward.html">Rewards</a>
+      <a href="rating.html">Review & Rating</a>
+    </div>
+    </div>
+  <!-- Main content -->
+  <main>
+    <div class="container">
+      <h1>Booking History</h1>
+      <p class="subtext">Review your past games and manage upcoming ones.</p>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <a href="#upcoming-anchor" class="tab">Upcoming</a>
+        <a href="#past-anchor" class="tab">Past</a>
+        <a href="#cancelled-anchor" class="tab">Cancelled</a>
+      </div>
+
+      <!-- Upcoming Tab Content (Visible by default) -->
+      <div class="tab-content" id="upcoming" style="display: block;">
+        <table>
+          <thead>
+            <tr>
+              <th>Date & Time</th>
+              <th>Venue</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>June 25, 2024<br><span class="time">7:00 PM</span></td>
+              <td>Urban Soccer Park<br><span class="court">Court 1</span></td>
+              <td><span class="badge upcoming">Upcoming</span></td>
+              <td><button class="btn cancel">Cancel</button></td>
+            </tr>
+            <tr>
+              <td>July 2, 2024<br><span class="time">8:00 PM</span></td>
+              <td>Downtown Futsal<br><span class="court">Court A</span></td>
+              <td><span class="badge upcoming">Upcoming</span></td>
+              <td><button class="btn cancel">Cancel</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Past Tab Content -->
+      <div class="tab-content" id="past">
+        <table>
+          <thead>
+            <tr>
+              <th>Date & Time</th>
+              <th>Venue</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>June 18, 2024<br><span class="time">6:00 PM</span></td>
+              <td>City Sports Center<br><span class="court">Main Court</span></td>
+              <td><span class="badge past">Past</span></td>
+              <td><button class="btn review">Leave Review</button></td>
+            </tr>
+            <tr>
+              <td>June 1, 2024<br><span class="time">9:00 AM</span></td>
+              <td>Urban Soccer Park<br><span class="court">Court 2</span></td>
+              <td><span class="badge past">Past</span></td>
+              <td><button class="btn review">Leave Review</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Cancelled Tab Content -->
+      <div class="tab-content" id="cancelled">
+        <table>
+          <thead>
+            <tr>
+              <th>Date & Time</th>
+              <th>Venue</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>May 20, 2024<br><span class="time">7:00 PM</span></td>
+              <td>Downtown Futsal<br><span class="court">Court B</span></td>
+              <td><span class="badge cancelled">Cancelled</span></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section brand">
+        <h2>CourtCraze</h2>
+        <p>Premium futsal experience in the heart of the city.</p>
+      </div>
+
+      <div class="footer-section contact">
+        <h3>Contact</h3>
+        <p>📍 BSOA, Bhaktapur</p>
+        <p>📞 9744556763</p>
+        <p>📧 info@courtcraze.com</p>
+      </div>
+
+      <div class="footer-section hours">
+        <h3>Hours</h3>
+        <p><strong>Mon–Fri:</strong> 7AM–6PM</p>
+        <p><strong>Sat–Sun:</strong> 6AM–7AM</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 CourtCraze. Crafted with excellence for champions.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

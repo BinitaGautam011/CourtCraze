@@ -10,7 +10,7 @@
   <div class="container">
     <h2>Welcome Back</h2>
     <p>Log in to your CourtCraze account</p>
-    <form>
+    <form id="loginForm">
       <div class="input-group">
         <label for="email">Email Address</label>
         <input type="email" id="email" placeholder="Enter your email" required>
@@ -23,7 +23,7 @@
 
       <div class="checkbox-group">
         <input type="checkbox" id="terms" required>
-        <label for="terms" class="checkbox-label">I accept all the <a href="terms.html">terms and conditions</a></label>
+        <label for="terms" class="checkbox-label">I accept all the terms and conditions</label>
       </div>
 
       <button type="submit">Log In</button>
@@ -32,5 +32,23 @@
       <a class="home-link" href="index.html">← Back to Home</a>
     </form>
   </div>
+  <script>
+     const loginForm = document.getElementById('loginForm');
+
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault(); // Prevent form from submitting normally
+
+      const username = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      // Simple login check (for demo only — NOT secure)
+      if (username === 'user@gmail.com' && password === '1234') {
+        // ✅ Redirect after success
+        window.location.href = 'client-panel/dashboard.html';  // ← Your next page here
+      } else {
+        alert('Invalid username or password');
+      }
+    });
+    </script>
 </body>
 </html>

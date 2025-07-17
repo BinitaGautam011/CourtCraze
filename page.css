@@ -15,7 +15,7 @@ body, html {
 
 
 .img {
-  background-image:url("futsal photo.avif");
+  background-image:url("./asset/futsal photo.avif");
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
@@ -97,7 +97,7 @@ body, html {
 .hc h1 {
   font-size: 80px;
   margin-bottom: 10px;
-  color: rgb(245, 243, 243);
+  color: rgb(255, 255, 255);
 }
 
 .hc #green {
@@ -166,8 +166,8 @@ body, html {
   padding: 25px  20px;
   text-align:center;
   color: rgb(252, 252, 252);
- width:247px;
-  height: 113px;
+ width:270px;
+  height: 124px;
   transition:transform 0.3s ease;
 }
 
@@ -188,11 +188,11 @@ body, html {
   border-color: #fff3;
   background-color: hsla(0, 3%, 94%, 0.102);
   border-radius:12px;
-  padding: 25px  20px;
+  padding:25px 20px;
   text-align:center;
   color: white;
-  width:247px;
-  height: 113px;
+  width:270px;
+  height: 124px;
   transition:transform 0.3s ease;
 }
 
@@ -217,7 +217,7 @@ body, html {
   text-align:center;
   color: white;
  width:247px;
-  height: 113px;
+  height: 124px;
   transition:transform 0.3s ease;
 }
 
@@ -268,8 +268,6 @@ h2{
     margin: auto;
     text-align: center;
     padding: 50px 20px;
-    /* background: linear-gradient(to bottom, #f9fafb, #e0f7e9); */
-    /* background: linear-gradient(to bottom, white, #b5ecb5); */
     border-radius: 16px;
 }
 
@@ -286,15 +284,6 @@ h3{
     font-weight: 500;
     margin-bottom: 10px;
 }
-/* .feat{
-    background: #af1c1c;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    transition: transform 0.3s, box-shadow 0.3s;
-    border: 2px solid transparent;
-  
-} */
 
 .box{
     background: #fff;

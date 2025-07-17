@@ -1,0 +1,242 @@
+*{
+    margin:0px;
+    padding: 0px;
+}
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f9;
+}
+.navbar{
+  background-color: #e8f0e8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+position: fixed; 
+  top: 0px; 
+  left: 0px; 
+  right: 0px; 
+  z-index: 1; 
+}
+
+.navbar h2{
+  color: #28a745;
+  font-size: 1.5rem;
+}
+.dash {
+     text-decoration: none;
+  margin-left: 20px;
+  color: #2a2a2a;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+.dash:hover {
+    background-color: #d4f5d7;
+}
+
+.link a{
+  text-decoration: none;
+  margin-left: 20px;
+  color: #2a2a2a;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.link a:hover{
+  background-color: #d4f5d7;
+}
+
+
+
+.reward-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.reward-header {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2d2d2d;
+  margin-bottom: 0.5rem;
+}
+
+.reward-header i {
+  margin-right: 0.5rem;
+  color: #9c1414;
+}
+
+.reward-subtitle {
+  color: #6b7280;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.top-row {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.coin-card {
+  flex: 1;
+  max-width: 300px;
+}
+
+.achievement-card {
+  flex: 2;
+  min-width: 300px;
+}
+
+.reward-section {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.reward-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #14532d;
+}
+
+.section-header i {
+  background-color: #facc15;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 50%;
+  margin-right: 0.75rem;
+  font-size: 1rem;
+}
+
+.section-subtitle {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.achievement-list,
+.coin-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.achievement-item,
+.coin-history-item {
+  background-color: #f3f4f6;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.achievement-item:hover,
+.coin-history-item:hover {
+  background-color: #dbeafe;
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.item-icon {
+  font-size: 1.2rem;
+  color: #16a34a;
+  margin-top: 2px;
+}
+
+.item-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-title {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.item-description {
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.coin-icon i {
+  background-color: #facc15;
+  color: white;
+}
+
+.achievement-icon i {
+  background-color: #757377;
+  color: white;
+}
+
+.history-card i {
+  background-color: #10b981;
+  color: white;
+}
+
+.footer {
+  background: linear-gradient(135deg, #1c462a, #024f33);
+  color: #f0f0f0;
+  padding: 40px 20px 20px;
+  font-family: 'Segoe UI',sans-serif;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+  gap: 15px;
+}
+
+.footer-section {
+  flex: 1 1 300px;
+}
+.footer-section h2,h3 {
+  color: #cdddac;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+.footer-section p{
+  margin: 6px 0;
+  line-height: 1.5;
+}
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  /* border-top: 1px solid #575050; */
+  margin-top: 20px;
+  font-size: 14px;
+  color: white;
+}
+
+.footer-section i{
+    margin-right: 8px;
+    color: #cdddac;
+}

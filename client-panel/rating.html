@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rating</title>
+    <link rel="stylesheet" href="rating.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+<body>
+     <div class="navbar">
+    <div class="navbar">
+    <a class="dash" href="dashboard.html">Dashboard</a>
+    <div class="link">
+      <a href="book.html">Book</a>
+      <a href="history.html">History</a>
+      <a href="reward.html">Rewards</a>
+      <a href="rating.html">Review & Rating</a>
+    </div>
+    </div>
+  </div>
+  
+  <div class="main">
+     <h1>Review Your Game</h1>
+    <p>Your feedback helps us and other players.Let us know how your experience was.</p>
+    <div class="box">
+<!-- <div id="cont"> -->
+    
+    <div class="container">
+  <div class="wrapper">
+    <input type="radio" name="rate" id="star-1">
+    <input type="radio" name="rate" id="star-2">
+    <input type="radio" name="rate" id="star-3">
+    <input type="radio" name="rate" id="star-4">
+    <input type="radio" name="rate" id="star-5">
+    <div class="content">
+      <div class="outer">
+        <div class="emojis">
+          <li class="slideImg"><img src="./assets/angry.png" alt=""></li>
+          <li><img src="./assets/sad.png" alt=""></li>
+          <li><img src="./assets/odd.png" alt=""></li>
+          <li><img src="./assets/happy.png" alt=""></li>
+          <li><img src="./assets/wow.png" alt=""></li>
+        </div>
+      </div>
+      <div class="stars">
+        <label for="star-1" class="star-1 fas fa-star"></label>
+        <label for="star-2" class="star-2 fas fa-star"></label>
+        <label for="star-3" class="star-3 fas fa-star"></label>
+        <label for="star-4" class="star-4 fas fa-star"></label>
+        <label for="star-5" class="star-5 fas fa-star"></label>
+      </div>
+     
+    </div>
+     
+    <div class="footers">
+      <span class="text"></span>
+      <span class="numb"></span>
+    </div>
+    
+  </div>
+  
+ </div>
+ <div class="comment-box"> <br><br>
+  <h3 style="font-size: 25px;color: black;">Leave your review</h3>
+  <br>
+  <textarea id="commentInput" placeholder="Write your review here..."></textarea>
+  <button onclick="submitComment()">Submit</button>
+<br><br>
+ 
+</div>
+</div>
+
+     <!-- <h1 style=" font-size: 40px;
+    color: #b12121;
+    text-shadow: 0px 4px 4px antiquewhite;text-align: center;">Feedback from our customer</h1>-->
+<!-- 
+ <div class="feedback">
+   <button class="arrow left" id="prevBtn">&#8592;</button>
+    <button class="arrow right" id="nextBtn">&#8594;</button>
+   <div class="slider-container">
+   
+   
+    <div class="feedback-box">
+      <h1 style=" font-size: 40px;
+    color: #b12121;
+    text-shadow: 0px 4px 4px antiquewhite;text-align: center;">Feedback from our customer</h1>
+      <div class="review-slider" id="reviewSlider">
+      
+      <div class="review-card">
+        <h3>Sarah L.</h3>
+          <p>⭐⭐⭐⭐☆</p>
+          <p>"The booking process was <br>super smooth.The court was in good condition."</p>
+      </div>
+      <div class="review-card">
+        <h3>John Doe</h3>
+        <p>⭐⭐⭐☆☆</p>
+        <p>"Good service but room<br> for improvement."</p>
+      </div>
+      <div class="review-card">
+        <h3>Mike R.</h3>
+          <p>⭐⭐⭐⭐⭐</p>
+          <p>"Best futsal experience in the city.Highly recommended!"</p>
+      </div>
+       
+      <div class="review-card">
+        <h3>Rita Sharma</h3>
+        <p>⭐⭐⭐⭐☆</p>
+        <p>"Very nice and clean place. Will visit again."</p>
+      </div>
+      <div class="review-card">
+        <h3>Cris R.</h3>
+          <p>⭐⭐⭐⭐⭐</p>
+          <p>"Love the new turf! Feels like playing in a professional<br> stadium."</p>
+      </div>
+    </div>
+    </div>
+     -->
+
+   
+  </div>
+  
+</div>
+ 
+ </div>
+ </div>
+ </div>
+
+ <!--footer-->
+    <footer class="footer">
+  <div class="footer-container">
+    <div class="footer-section brand">
+      <h2>CourtCraze</h2>
+      <p>Premium futsal experience in the heart of the city. Where passion meets precision.</p>
+    </div>
+
+    <div class="footer-section contact">
+      <h3>Contact Info</h3>
+      <p><i class="fas fa-map-marker-alt"></i> BSOA , Bhaktapur District</p>
+      <p><i class="fas fa-phone"></i> 9744556763</p>
+      <p><i class="fas fa-envelope"></i> info@courtcraze.com</p>
+    </div>
+
+    <div class="footer-section hours">
+      <h3>Operating Hours</h3>
+      <p><strong>Mon - Fri:</strong> 7:00 AM - 06:00 PM</p>
+      <p><strong>Sat - Sun:</strong> 6:00 AM - 07:00 AM</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2024 CourtCraze. Crafted with excellence for champions.</p>
+  </div>
+</footer>
+
+  <script src="script.js"></script>
+
+<script src="rating.js"></script>
+</body>
+</html>
+
