@@ -1,0 +1,105 @@
+/* Apply dark background with centered form */
+body {
+  background: black;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Card styling */
+.container {
+  background-color: white;
+  padding: 30px 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+  color: #1e1e1e;
+}
+
+p {
+  margin-bottom: 20px;
+  color: #555;
+}
+/* Form groups */
+.input-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Ensures left-aligned label */
+}
+
+/* Label styling */
+label {
+  margin-bottom: 6px;
+  color: #333;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* Input fields */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+/* Login and back link */
+.signin-text {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.signin-text a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.signin-text a:hover {
+  text-decoration: underline;
+}
+
+.home-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #444;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.home-link:hover {
+  text-decoration: underline;
+}
