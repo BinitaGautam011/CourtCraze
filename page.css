@@ -89,28 +89,6 @@ body, html {
   align-items:center;
 }
 
-.coins {
-  background-color:gold;
-  color:black;
-  padding:10px 18px;
-  font-weight: bold;
-  border-radius: 6px;
-}
-
-.quickbook {
-  background-color:#27ae60;
-  color:white;
-  padding:10px 18px;
-  font-weight:bold;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
-  transition:background-color 0.3s;
-}
-
-.quickbook:hover {
-  background-color:#219150;
-}
 .hc {
   text-align:center;
   padding: 40px 20px;
@@ -119,15 +97,15 @@ body, html {
 .hc h1 {
   font-size: 80px;
   margin-bottom: 10px;
-  color: rgb(218, 213, 213);
+  color: rgb(245, 243, 243);
 }
 
 .hc #green {
-  color:#25d10e;
+  color:rgb(9, 108, 9);
 }
 
 .hc p {
-  color: #aebab1;
+  color: #eaeaea;
   max-width:600px;
   margin: 20px auto;
   font-size:22px;
@@ -153,7 +131,7 @@ body, html {
   transition:0.3s ease;
 }
 .button2 .booknow {
-  background-color:#2ecc71;
+  background-color:#04883b;
   color:white;
 }
 
@@ -187,7 +165,7 @@ body, html {
   border-radius:12px;
   padding: 25px  20px;
   text-align:center;
-  color: white;
+  color: rgb(252, 252, 252);
  width:247px;
   height: 113px;
   transition:transform 0.3s ease;
@@ -199,7 +177,7 @@ body, html {
 
 .booking h2 {
   font-size:30px;
-  color:#3eff1c;
+  color:#1bb600;
 }
 .booking p {
   font-size: 17px;
@@ -257,71 +235,73 @@ body, html {
 }
 /* features section*/
 
-
-
-.cont {
-  width: 100%;
-  height: 700px;
- padding: 40px 0px;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.why{
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f9fafb;
+    color: #080707;
+    padding: 20px;
+}
+
+h1{
     text-align: center;
     font-size: 56px;
     font-weight: 700;
-    padding-top: 40px;
     margin-bottom: 20px;
 }
 
-.exp{
+h2{
     text-align: center;
     font-size: 20px;
     font-weight: 400;
-    margin-bottom: 05px;
+    margin-bottom: 40px;
     color: #4b5563;
 }
 
 .features{
-    width: 98vw;
-    height: 460px;
-    margin: 0px;
+    max-width: 1200px;
+    margin: auto;
     text-align: center;
-    padding: 20px 20px;
-    /* background: linear-gradient(to bottom, white, #c8dbc8); */
+    padding: 50px 20px;
+    /* background: linear-gradient(to bottom, #f9fafb, #e0f7e9); */
+    /* background: linear-gradient(to bottom, white, #b5ecb5); */
+    border-radius: 16px;
 }
 
 .feat {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 26px;
+    gap: 24px;
     margin-top: 30px;
 }
 
 
-.feat h3{
-    font-size: 25px;
+h3{
+    font-size: 21px;
     font-weight: 500;
     margin-bottom: 10px;
 }
-
-svg {
-    height: 40px;
-    width: 50px;
-    align-items: center;
-    /* padding:5px; */
-}
-
-.inside-content {
-     font-size:18px;
-     font-family: Verdana, sans-serif;
-}
+/* .feat{
+    background: #af1c1c;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 2px solid transparent;
+  
+} */
 
 .box{
     background: #fff;
     border-radius: 12px;
-    padding: 24px;
-    width: 280px;
-    height: 280px;
+    padding: 32px;
+    width: 270px;
+    height: 300px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     transition: transform 0.3s, box-shadow 0.3s;
     border: 2px solid transparent;
@@ -339,7 +319,7 @@ svg {
     /* box-shadow: 0 6px 20px rgb(6, 228, 61);
     border-radius: 10px; */
     border-color: #34d399;
-    box-shadow: 4px 4px 20px rgb(122, 204, 122);
+    box-shadow: 0px 4px 15px #10b981;
 
 }
 
@@ -357,32 +337,31 @@ svg {
   content: "";
   position: absolute;
   left: 50%;
-  bottom: -50px;   
-              /* space below text */
+  bottom: -30px;               /* space below text */
   width: 0px;
   height: 3px;                /* underline thickness */
+  
   background-color: #34d399; /* green color matching your theme */
-  transition: width 0.3s ease-in-out;
-  border-radius: 3px;
+  transition: width 0.3s ease;
+  border-radius: 2px;
   transform: translateX(-50%);
 }
 
 .box:hover p::after {
-  width: 30px;  /* underline length on hover */
+  width: 35px;  /* underline length on hover */
 }
 
 
 .icon{
     margin: 0 auto; 
     margin-bottom: 12px;
-    border-radius: 20px;
-     width: 60px;
-     height: 63px;
-     padding: 7px;
+    padding: 8%;
+    border-radius: 10px;
 }
 
 .icon svg{
-    transition: 0.3s ease-in-out;
+    margin: 0 0 24px;
+    transition: 0.3s ease;
 }
 /* .icon:hover svg{
     transform: scale(1.2);
@@ -390,33 +369,35 @@ svg {
 } */
 
 
-
 .green {
      background: linear-gradient(135deg, #10b981, #34d399);
      color: white;
-    
+     width: 64px;
+     height: 64px;
 }
 .yellow {
      background: linear-gradient(135deg, #a3e635, #facc15);
      color: white;
-    
+     width: 64px;
+     height: 64px;
 }
 .blue {
      background: linear-gradient(135deg, #89f7fe, #66a6ff);
      color: white;
-    
+     width: 64px;
+     height: 64px;
 }
 .purple {
      background: linear-gradient(135deg, #c084fc, #ec4899);
      color: white;
-  
+     width: 64px;
+     height: 64px;
 }
 
 .green-title {
     color: #34d399;
     font-weight: 700;
 }
-
 
 /*stat section*/
 
