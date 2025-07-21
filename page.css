@@ -413,14 +413,14 @@ h3{
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-gap: 40px;
+  gap: 40px;
 }
 
 .stat-box {
     background-color: rgba(255,255,255,0.1);
     padding: 15px 20px;
     border-radius:16px;
-    width: 310px;
+    width: 285px;
     height: 150px;
     transition: transform 0.3s ease;
 }
@@ -436,7 +436,6 @@ gap: 40px;
     margin-top: 20px;
     font-size: 1.1rem;
     position: relative;
-    display: inline-block;
     cursor: pointer;
 }
 .stat-box::after {
@@ -454,12 +453,6 @@ gap: 40px;
 .stat-box:hover::after {  
     width: 50px;
 
-}
-@media (max-width:600px){
-    .stat-box {
-        width: 100%;
-        max-width: 300px;
-    }
 }
 
 /*Footer section*/
@@ -487,12 +480,10 @@ gap: 40px;
 }
 .footer-section p{
   margin: 6px 0;
-  line-height: 1.5;
 }
 .footer-bottom {
   text-align: center;
   padding-top: 20px;
-  /* border-top: 1px solid #575050; */
   margin-top: 20px;
   font-size: 14px;
   color: white;

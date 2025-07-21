@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Calendar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -103,6 +104,50 @@
   margin-left: 140px;
   text-align: center;
 }
+
+.footer {
+  background: linear-gradient(135deg, #1c462a, #024f33);
+  color: #f0f0f0;
+  padding: 40px 20px 20px;
+  font-family: 'Segoe UI',sans-serif;
+  margin-left: -20px;
+  margin-right: -20px;
+  margin-bottom: -20px;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+  gap: 15px;
+}
+
+.footer-section {
+  flex: 1 1 300px;
+}
+.footer-section h2,h3 {
+  color: #cdddac;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+.footer-section p{
+  margin: 6px 0;
+}
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  /* border-top: 1px solid #575050; */
+  margin-top: 20px;
+  font-size: 14px;
+  color: white;
+}
+
+.footer-section i{
+    margin-right: 8px;
+    color: #cdddac;
+}
   </style>
 </head>
 <body>
@@ -135,6 +180,33 @@
       <tbody></tbody>
     </table>
   </div>
+  <!--footer-->
+    <footer class="footer">
+  <div class="footer-container">
+    <div class="footer-section brand">
+      <h2>CourtCraze</h2>
+      <p>Premium futsal experience in the heart of the city. Where passion meets precision.</p>
+    </div>
+
+    <div class="footer-section contact">
+      <h3>Contact Info</h3>
+      <p><i class="fas fa-map-marker-alt"></i> BSOA , Bhaktapur District</p>
+      <p><i class="fas fa-phone"></i> 9744556763</p>
+      <p><i class="fas fa-envelope"></i> info@courtcraze.com</p>
+    </div>
+
+    <div class="footer-section hours">
+      <h3>Operating Hours</h3>
+      <p><strong>Mon - Fri:</strong> 7:00 AM - 06:00 PM</p>
+      <p><strong>Sat - Sun:</strong> 6:00 AM - 07:00 AM</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2024 CourtCraze. Crafted with excellence for champions.</p>
+  </div>
+</footer>
+
     <script>
     const t=new Date(),d=t.getDate(),m=t.getMonth(),y=t.getFullYear(),b=document.querySelector("tbody");
     let day=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate(),r=document.createElement("tr");
