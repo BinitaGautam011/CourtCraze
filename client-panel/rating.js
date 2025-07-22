@@ -1,6 +1,6 @@
   function submitComment() {
     const input = document.getElementById('commentInput');
-    const commentText = input.value.trim();
+    const commentText = input.value.trim();//hello   world 
 
     if (commentText !== '') 
         {
@@ -8,7 +8,6 @@
         comment.className = 'comment';
         comment.innerText = commentText;
         alert("Commented Successfully")
-        document.getElementById('commentsSection').appendChild(comment);
         input.value = ''; // clear the box
         } 
     else
