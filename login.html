@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +11,7 @@
   <div class="container">
     <h2>Welcome Back</h2>
     <p>Log in to your CourtCraze account</p>
+    
     <form id="loginForm">
       <div class="input-group">
         <label for="email">Email Address</label>
@@ -26,14 +28,16 @@
         <label for="terms" class="checkbox-label">I accept all the terms and conditions</label>
       </div>
 
+      <!-- ✅ This button is correct as-is -->
       <button type="submit">Log In</button>
 
       <p class="signin-text">Don't have an account? <a href="register.html">Sign up</a></p>
       <a class="home-link" href="index.html">← Back to Home</a>
     </form>
   </div>
+
   <script>
-     const loginForm = document.getElementById('loginForm');
+    const loginForm = document.getElementById('loginForm');
 
     loginForm.addEventListener('submit', function(e) {
       e.preventDefault(); // Prevent form from submitting normally
@@ -44,11 +48,12 @@
       // Simple login check (for demo only — NOT secure)
       if (username === 'user@gmail.com' && password === '1234') {
         // ✅ Redirect after success
-        window.location.href = 'client-panel/dashboard.html';  // ← Your next page here
+        window.location.href = 'client-panel/dashboard.html';  // Your next page
       } else {
         alert('Invalid username or password');
       }
     });
-    </script>
+  </script>
 </body>
 </html>
+<!-- isuue fix  -->
