@@ -1,0 +1,329 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --g50: #f0fdf4;
+  --g100: #dcfce7;
+  --g200: #bbf7d0;
+  --g400: #4ade80;
+  --g500: #22c55e;
+  --g600: #16a34a;
+  --g700: #15803d;
+  --g800: #166534;
+  --g900: #14532d;
+  --g950: #052e16;
+  --gray50: #f9fafb;
+  --gray100: #f3f4f6;
+  --gray200: #e5e7eb;
+  --gray400: #9ca3af;
+  --gray500: #6b7280;
+  --gray700: #374151;
+  --gray800: #1f2937;
+  --gray900: #111827;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+  --fd: "Bebas Neue", sans-serif;
+  --fb: "DM Sans", sans-serif;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+  --sh-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --sh-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+  --sh-lg: 0 12px 32px rgba(0, 0, 0, 0.13);
+  --sh-g: 0 4px 20px rgba(34, 197, 94, 0.28);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: var(--fb);
+  background: var(--gray50);
+  color: var(--gray800);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── APP NAVBAR ─────────────────────────────── */
+.app-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--g100);
+  box-shadow: var(--sh-sm);
+}
+.app-nav .brand {
+  font-family: var(--fd);
+  font-size: 26px;
+  letter-spacing: 1px;
+  color: var(--g700);
+  text-decoration: none;
+}
+.app-nav .links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.app-nav .links a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray700);
+  text-decoration: none;
+  padding: 7px 14px;
+  border-radius: var(--r-md);
+  transition: 0.2s;
+}
+.app-nav .links a:hover,
+.app-nav .links a.active {
+  background: var(--g50);
+  color: var(--g700);
+}
+.app-nav .links a.active {
+  font-weight: 600;
+}
+.ham {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 6px;
+  background: none;
+  border: none;
+}
+.ham span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--gray700);
+  border-radius: 2px;
+  transition: 0.3s;
+}
+.mob-links {
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 20px 14px;
+  background: #fff;
+  border-bottom: 1px solid var(--gray100);
+  position: fixed;
+  top: 62px;
+  left: 0;
+  right: 0;
+  z-index: 199;
+}
+.mob-links.open {
+  display: flex;
+}
+.mob-links a {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--gray700);
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: var(--r-md);
+  transition: 0.2s;
+}
+.mob-links a:hover {
+  background: var(--g50);
+  color: var(--g700);
+}
+
+/* ─── FOOTER ─────────────────────────────────── */
+.site-footer {
+  background: linear-gradient(135deg, var(--g950), var(--g900));
+  color: rgba(255, 255, 255, 0.8);
+  padding: 52px 40px 24px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 40px;
+  max-width: 1100px;
+  margin: 0 auto 36px;
+}
+.footer-logo {
+  font-family: var(--fd);
+  font-size: 28px;
+  letter-spacing: 1px;
+  color: var(--g400);
+  display: block;
+  margin-bottom: 10px;
+}
+.footer-brand p {
+  font-size: 14px;
+  line-height: 1.7;
+  opacity: 0.72;
+  max-width: 280px;
+}
+.footer-col h4 {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--g400);
+  margin-bottom: 14px;
+}
+.footer-col ul {
+  list-style: none;
+}
+.footer-col ul li {
+  margin-bottom: 9px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.8;
+}
+.footer-col ul li i {
+  color: var(--g400);
+  font-size: 13px;
+  width: 16px;
+}
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+  text-align: center;
+  font-size: 12px;
+  opacity: 0.45;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ─── SHARED COMPONENTS ──────────────────────── */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.badge-green {
+  background: var(--g100);
+  color: var(--g700);
+}
+.badge-gray {
+  background: var(--gray200);
+  color: var(--gray700);
+}
+.badge-red {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.badge-blue {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.badge-yellow {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: var(--r-md);
+  font-family: var(--fb);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s,
+    background 0.2s;
+  text-decoration: none;
+}
+.btn-primary {
+  background: var(--g600);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--g700);
+  transform: translateY(-2px);
+  box-shadow: var(--sh-g);
+}
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--g600);
+  color: var(--g700);
+}
+.btn-outline:hover {
+  background: var(--g50);
+  transform: translateY(-2px);
+}
+.btn-danger {
+  background: var(--danger);
+  color: #fff;
+}
+.btn-danger:hover {
+  background: #dc2626;
+}
+.btn-ghost {
+  background: var(--gray100);
+  color: var(--gray700);
+}
+.btn-ghost:hover {
+  background: var(--gray200);
+}
+
+.card {
+  background: #fff;
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-sm);
+  padding: 24px;
+  border: 1px solid var(--gray100);
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sh-md);
+}
+
+.page-wrap {
+  padding-top: 82px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.page-content {
+  flex: 1;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────── */
+@media (max-width: 768px) {
+  .app-nav .links {
+    display: none;
+  }
+  .ham {
+    display: flex;
+  }
+  .site-footer {
+    padding: 40px 20px 20px;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}

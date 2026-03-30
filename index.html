@@ -1,180 +1,807 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="page.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CourtCraze — Premium Futsal Booking</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      /* ── LANDING NAV ─────────────────────────── */
+      .land-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+        height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 44px;
+        background: rgba(255, 255, 255, 0.93);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid rgba(34, 197, 94, 0.12);
+        transition: box-shadow 0.3s;
+      }
+      .land-nav.scrolled {
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      }
+      .land-nav .logo {
+        font-family: var(--fd);
+        font-size: 30px;
+        letter-spacing: 1px;
+        color: var(--g700);
+        text-decoration: none;
+      }
+      .land-nav .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .land-nav .nav-links a {
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--gray700);
+        text-decoration: none;
+        padding: 8px 16px;
+        border-radius: var(--r-md);
+        transition: 0.2s;
+      }
+      .land-nav .nav-links a:hover {
+        background: var(--g50);
+        color: var(--g700);
+      }
+      .land-nav .right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .btn-login {
+        border: 1.5px solid var(--g600);
+        background: none;
+        color: var(--g700);
+        padding: 8px 18px;
+        border-radius: var(--r-md);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        transition: 0.2s;
+        display: inline-block;
+      }
+      .btn-login:hover {
+        background: var(--g600);
+        color: #fff;
+      }
+      .btn-signup {
+        background: var(--g600);
+        color: #fff;
+        padding: 8px 18px;
+        border-radius: var(--r-md);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        transition: 0.2s;
+        display: inline-block;
+        border: none;
+      }
+      .btn-signup:hover {
+        background: var(--g700);
+      }
+      .land-ham {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 6px;
+      }
+      .land-ham span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: var(--gray700);
+        border-radius: 2px;
+      }
+      .land-mob {
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        border-bottom: 1px solid var(--gray100);
+        padding: 12px 20px 16px;
+        position: fixed;
+        top: 68px;
+        left: 0;
+        right: 0;
+        z-index: 199;
+        gap: 4px;
+      }
+      .land-mob.open {
+        display: flex;
+      }
+      .land-mob a {
+        font-size: 15px;
+        font-weight: 500;
+        padding: 10px 12px;
+        border-radius: var(--r-md);
+        text-decoration: none;
+        color: var(--gray700);
+      }
+      .land-mob a:hover {
+        background: var(--g50);
+        color: var(--g700);
+      }
 
-    <title>CourtCraze</title>
-</head>
-<body>
- 
-    <div class="img">
-        
-<div class="navbar">
-  <a href="index.html" class="cou"><div class="court">CourtCraze</div></a>
+      /* ── HERO ─────────────────────────────────── */
+      .hero {
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 90px 24px 60px;
+      }
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background: url("./asset/futsal photo.avif") center/cover no-repeat;
+      }
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          160deg,
+          rgba(5, 46, 22, 0.88) 0%,
+          rgba(21, 128, 61, 0.55) 55%,
+          rgba(5, 46, 22, 0.8) 100%
+        );
+      }
+      .hero-inner {
+        position: relative;
+        z-index: 2;
+        max-width: 820px;
+        width: 100%;
+      }
 
-  <div class="cl">
-    <a href="#feature">Features</a>
-    <a href="#stat">Stats</a>
-     <a href="login.html" target="_blank"><button class="login" >Login</button></a>
-  </div>
+      .hero-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(34, 197, 94, 0.18);
+        border: 1px solid rgba(74, 222, 128, 0.35);
+        padding: 6px 18px;
+        border-radius: 40px;
+        margin-bottom: 28px;
+        font-size: 13px;
+        font-weight: 500;
+        color: #86efac;
+        letter-spacing: 0.4px;
+      }
+      .hero-pill .dot {
+        width: 7px;
+        height: 7px;
+        background: var(--g400);
+        border-radius: 50%;
+        animation: blink 1.8s infinite;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.35;
+        }
+      }
 
-</div>
-        
+      .hero h1 {
+        font-family: var(--fd);
+        font-size: clamp(60px, 9.5vw, 108px);
+        letter-spacing: 2px;
+        line-height: 0.92;
+        color: #fff;
+        margin-bottom: 26px;
+      }
+      .hero h1 .accent {
+        color: var(--g400);
+      }
+      .hero p {
+        font-size: clamp(16px, 2vw, 20px);
+        color: rgba(255, 255, 255, 0.78);
+        max-width: 540px;
+        margin: 0 auto 40px;
+        line-height: 1.65;
+      }
+      .hero-btns {
+        display: flex;
+        gap: 14px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 56px;
+      }
+      .hbtn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        background: var(--g500);
+        color: #fff;
+        padding: 17px 34px;
+        border-radius: var(--r-md);
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .hbtn-primary:hover {
+        background: var(--g700);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 28px rgba(34, 197, 94, 0.42);
+      }
+      .hbtn-ghost {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        border: 1.5px solid rgba(255, 255, 255, 0.3);
+        padding: 17px 34px;
+        border-radius: var(--r-md);
+        font-size: 16px;
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          transform 0.2s;
+      }
+      .hbtn-ghost:hover {
+        background: rgba(255, 255, 255, 0.22);
+        transform: translateY(-3px);
+      }
 
-        <div class="hc"> 
-            <h1>Elevate Your</h1>
-            <h1 id="green">Futsal Game</h1>
-            <p>
-                Experience premium futsal courts with instant booking, reward systems, 
-                and a community of passionate players. Your game, your time, your victory.
-            </p>
-        </div>
-         <div class="button2">
-            <button class="booknow">Book Now- Earn coins</button>
-            <button class="preview">Watch Preview</button>
-         </div>
-  <div class="s">
-  <div class="booking">
-    <h2>24/7</h2>
-    <p>Instant Booking</p>
-  </div>
-  <div class="premium">
-    <h2>3</h2>
-    <p>Premium Courts</p>
-  </div>
-  <div class="rating">
-    <h2>4.9★</h2>
-    <p>Player Rating</p>
-  </div>
-</div>
-</div>
+      /* Stat strip */
+      .stat-strip {
+        display: flex;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.09);
+        backdrop-filter: blur(10px);
+        border-radius: var(--r-xl);
+        overflow: hidden;
+        width: 100%;
+        max-width: 640px;
+        margin: 0 auto;
+      }
+      .ss-item {
+        flex: 1;
+        text-align: center;
+        padding: 22px 16px;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        transition: background 0.25s;
+      }
+      .ss-item:last-child {
+        border-right: none;
+      }
+      .ss-item:hover {
+        background: rgba(255, 255, 255, 0.09);
+      }
+      .ss-num {
+        font-family: var(--fd);
+        font-size: 34px;
+        letter-spacing: 1px;
+        color: var(--g400);
+      }
+      .ss-label {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.6);
+        margin-top: 3px;
+      }
 
+      /* ── WHY COURTCRAZE ─────────────────────── */
+      .features-sec {
+        padding: 100px 40px;
+        background: #fff;
+      }
+      .sec-label {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--g600);
+        background: var(--g50);
+        border: 1px solid var(--g200);
+        padding: 4px 14px;
+        border-radius: 20px;
+        margin-bottom: 16px;
+      }
+      .sec-title {
+        font-family: var(--fd);
+        font-size: clamp(36px, 5vw, 52px);
+        letter-spacing: 1px;
+        color: var(--gray900);
+        line-height: 1.05;
+        margin-bottom: 14px;
+      }
+      .sec-sub {
+        font-size: 16px;
+        color: var(--gray500);
+        max-width: 500px;
+        margin: 0 auto 52px;
+      }
+      .feat-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 24px;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      .feat-card {
+        background: var(--gray50);
+        border-radius: var(--r-lg);
+        padding: 32px 28px;
+        border: 1px solid var(--gray100);
+        transition:
+          transform 0.25s,
+          box-shadow 0.25s,
+          border-color 0.25s,
+          background 0.25s;
+      }
+      .feat-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--sh-lg);
+        border-color: var(--g200);
+        background: #fff;
+      }
+      .feat-icon {
+        width: 54px;
+        height: 54px;
+        border-radius: var(--r-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        font-size: 22px;
+      }
+      .fi-green {
+        background: var(--g100);
+        color: var(--g700);
+      }
+      .fi-yellow {
+        background: #fef3c7;
+        color: #b45309;
+      }
+      .fi-blue {
+        background: #dbeafe;
+        color: #1d4ed8;
+      }
+      .fi-purple {
+        background: #ede9fe;
+        color: #6d28d9;
+      }
+      .feat-card h3 {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--gray900);
+        margin-bottom: 10px;
+        transition: color 0.2s;
+      }
+      .feat-card:hover h3 {
+        color: var(--g700);
+      }
+      .feat-card p {
+        font-size: 14px;
+        color: var(--gray500);
+        line-height: 1.65;
+      }
+      .features-sec .sec-header {
+        text-align: center;
+      }
 
+      /* ── HOW IT WORKS ───────────────────────── */
+      .how-sec {
+        padding: 100px 40px;
+        background: var(--gray50);
+      }
+      .how-sec .sec-header {
+        text-align: center;
+      }
+      .steps-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 32px;
+        max-width: 900px;
+        margin: 0 auto;
+        position: relative;
+      }
+      .step-card {
+        text-align: center;
+        padding: 20px 16px;
+      }
+      .step-num {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: var(--g600);
+        color: #fff;
+        font-family: var(--fd);
+        font-size: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 18px;
+      }
+      .step-card h3 {
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--gray900);
+        margin-bottom: 8px;
+      }
+      .step-card p {
+        font-size: 14px;
+        color: var(--gray500);
+        line-height: 1.6;
+      }
 
-<!--Features-->
-<div class="cont" id="feature">
-        
-    <h1 class="why">Why Choose <span class="green-title">CourtCraze?</span></h1>
-    <h2 class="exp">Experience the future of futsal booking with our
-        cutting-edge features designed for <br> players who
-        demand excellence.</h2>
-    <section class="features">
-    <div class="feat">
-    <div class="box">
-    <div class="icon green"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-check2-icon lucide-calendar-check-2"><path d="M8 2v4"/><path d="M16 2v4"/><path d="M21 14V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"/><path d="M3 10h18"/><path d="m16 20 2 2 4-4"/></svg></div>
+      /* ── STATS BAND ─────────────────────────── */
+      .stats-sec {
+        background: linear-gradient(135deg, var(--g800), var(--g700));
+        padding: 90px 40px;
+        text-align: center;
+      }
+      .stats-sec h2 {
+        font-family: var(--fd);
+        font-size: clamp(32px, 5vw, 52px);
+        color: #fff;
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+      }
+      .stats-sec > p {
+        font-size: 17px;
+        color: rgba(255, 255, 255, 0.72);
+        max-width: 480px;
+        margin: 0 auto 56px;
+      }
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+        max-width: 860px;
+        margin: 0 auto;
+      }
+      .stat-box {
+        background: rgba(255, 255, 255, 0.11);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: var(--r-lg);
+        padding: 28px 16px;
+        transition:
+          transform 0.25s,
+          background 0.25s;
+      }
+      .stat-box:hover {
+        transform: translateY(-6px);
+        background: rgba(255, 255, 255, 0.18);
+      }
+      .stat-number {
+        font-family: var(--fd);
+        font-size: 54px;
+        letter-spacing: 1px;
+        color: #fff;
+      }
+      .stat-title {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.62);
+        margin-top: 8px;
+        font-weight: 500;
+      }
 
-    <div class="inside-content">
-         <h3>
-        Instant Booking
-    </h3>
-    <p> Book your favorite time slots 
-        <br> in seconds with real-time <br> availability</p>
+      /* ── CTA STRIP ──────────────────────────── */
+      .cta-sec {
+        padding: 90px 40px;
+        text-align: center;
+        background: linear-gradient(160deg, var(--g50) 0%, #fff 100%);
+      }
+      .cta-sec h2 {
+        font-family: var(--fd);
+        font-size: clamp(34px, 5vw, 54px);
+        color: var(--gray900);
+        letter-spacing: 1px;
+        margin-bottom: 16px;
+      }
+      .cta-sec p {
+        font-size: 17px;
+        color: var(--gray500);
+        max-width: 480px;
+        margin: 0 auto 36px;
+      }
+
+      /* ── RESPONSIVE ─────────────────────────── */
+      @media (max-width: 768px) {
+        .land-nav .nav-links,
+        .land-nav .right {
+          display: none;
+        }
+        .land-ham {
+          display: flex;
+        }
+        .features-sec,
+        .how-sec,
+        .stats-sec,
+        .cta-sec {
+          padding: 64px 20px;
+        }
+        .stat-strip {
+          flex-direction: column;
+        }
+        .ss-item {
+          border-right: none;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .ss-item:last-child {
+          border-bottom: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav class="land-nav" id="landNav">
+      <a href="index.html" class="logo">CourtCraze</a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#how">How It Works</a>
+        <a href="#stats">Stats</a>
+      </div>
+      <div class="right">
+        <a href="login.html" class="btn-login">Log In</a>
+        <a href="register.html" class="btn-signup">Get Started</a>
+      </div>
+      <button class="land-ham" id="landHam" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <div class="land-mob" id="landMob">
+      <a href="#features">Features</a>
+      <a href="#how">How It Works</a>
+      <a href="#stats">Stats</a>
+      <a href="login.html">Log In</a>
+      <a href="register.html" style="color: var(--g700); font-weight: 600"
+        >Get Started →</a
+      >
     </div>
-   </div>
-    
 
-    <div class="box">
-    <div class="icon yellow"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hand-coins-icon lucide-hand-coins"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"/><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"/><path d="m2 16 6 6"/><circle cx="16" cy="9" r="2.9"/><circle cx="6" cy="5" r="3"/></svg></div>
-        <div class="inside-content">
-            <h3>
-            Earn Rewards
-        </h3>
-        <p>Get CrazeCoins for every  <br> 
-            booking and redeem for free <br> sessions</p>
-        </div></div>
-        
-
-        <div class="box">
-        <div class="icon blue"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users-round-icon lucide-users-round"><path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/></svg></div>
-        <div class="inside-content">
-            <h3>
-            Community Stats
-        </h3>
-        <p>Track your performance and 
-            <br> compete with the fellow <br>players
-        
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-inner">
+        <div class="hero-pill">
+          <span class="dot"></span> Now Open · Bhaktapur District
+        </div>
+        <h1>Elevate Your<br /><span class="accent">Futsal Game</span></h1>
+        <p>
+          Premium courts, instant booking, CrazeCoins rewards, and a community
+          of passionate players. Your game, your time, your victory.
         </p>
+        <div class="hero-btns">
+          <a href="login.html" class="hbtn-primary"
+            ><i class="fas fa-bolt"></i> Book Now — Earn Coins</a
+          >
+          <a href="#features" class="hbtn-ghost"
+            ><i class="fas fa-play"></i> Learn More</a
+          >
         </div>
-    </div>
-        
-        
-        <div class="box">
-        <div class="icon purple"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star-icon lucide-star"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg></div>
-          <div class="inside-content">
-             <h3> Premium Experience</h3>
-        
-        <p>High-quality courts with
-            <br> professional maintenance and <br>equipment</p>
+        <div class="stat-strip">
+          <div class="ss-item">
+            <div class="ss-num">24/7</div>
+            <div class="ss-label">Instant Booking</div>
+          </div>
+          <div class="ss-item">
+            <div class="ss-num">6</div>
+            <div class="ss-label">Premium Courts</div>
+          </div>
+          <div class="ss-item">
+            <div class="ss-num">4.9★</div>
+            <div class="ss-label">Player Rating</div>
           </div>
         </div>
-    </div>
+      </div>
     </section>
-    </div>
 
-    <!--Stats Section-->
-
- <section class="stats-section" id="stat">
-    <h1>Join the Revolution.</h1>
-    <p>Thousands of the players trust CourtCraze for their futsal needs.<br>
-        Be the part of the community.
-    </p>
-    <div class="stats-container">
-     <div class="stat-box">
-        <div class="stat-number" data-target="1250 ">0</div>
-        <div class="stat-title">
-            Happy Players
+    <!-- FEATURES -->
+    <section class="features-sec" id="features">
+      <div class="sec-header">
+        <div class="sec-label">Why CourtCraze</div>
+        <h2 class="sec-title">Built for Players Who<br />Demand Excellence</h2>
+        <p class="sec-sub">
+          Every feature designed to elevate your experience on and off the
+          court.
+        </p>
+      </div>
+      <div class="feat-grid">
+        <div class="feat-card">
+          <div class="feat-icon fi-green">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <h3>Instant Booking</h3>
+          <p>
+            Reserve your favourite slot in seconds with real-time court
+            availability. No calls, no waiting.
+          </p>
         </div>
-     </div>
-<div class="stat-box">
-    <div class="stat-number" data-target="8450">0</div>
-        <div class="stat-title">Games Players</div>
-    </div>
-
-<div class="stat-box">
-    <div class="stat-number" data-target="6" > 0</div>
-        <div class="stat-title">Courts Available</div>
-    </div>
-
-<div class="stat-box">
-    <div class="stat-number" data-target="4.9" data-decimal="true" > 0 </div>
-        <div class="stat-title"> Average Ratings</div> </div>
-    </div>
-
+        <div class="feat-card">
+          <div class="feat-icon fi-yellow"><i class="fas fa-coins"></i></div>
+          <h3>Earn Rewards</h3>
+          <p>
+            Every booking earns CrazeCoins. Stack them up and redeem for free
+            sessions, discounts and more.
+          </p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon fi-blue"><i class="fas fa-users"></i></div>
+          <h3>Community Stats</h3>
+          <p>
+            Track your performance, compare with fellow players, and climb the
+            leaderboard.
+          </p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon fi-purple"><i class="fas fa-star"></i></div>
+          <h3>Premium Experience</h3>
+          <p>
+            Pro-grade turf, full floodlights, and spotless facilities maintained
+            to the highest standard.
+          </p>
+        </div>
+      </div>
     </section>
 
+    <!-- HOW IT WORKS -->
+    <section class="how-sec" id="how">
+      <div class="sec-header">
+        <div class="sec-label">How It Works</div>
+        <h2 class="sec-title">Three Steps to the Pitch</h2>
+        <p class="sec-sub">From sign-up to kickoff in minutes.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <h3>Create an Account</h3>
+          <p>
+            Sign up in under a minute. No credit card required to get started.
+          </p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <h3>Pick Your Slot</h3>
+          <p>
+            Choose your court, date and time from live availability. Confirm in
+            one click.
+          </p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <h3>Play & Earn</h3>
+          <p>
+            Show up, play your game, and earn CrazeCoins automatically after
+            every session.
+          </p>
+        </div>
+      </div>
+    </section>
 
+    <!-- STATS -->
+    <section class="stats-sec" id="stats">
+      <h2>Join the Revolution.</h2>
+      <p>
+        Thousands of players trust CourtCraze for their futsal needs. Be part of
+        the community.
+      </p>
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-number" data-target="1250">0</div>
+          <div class="stat-title">Happy Players</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" data-target="8450">0</div>
+          <div class="stat-title">Games Played</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" data-target="6">0</div>
+          <div class="stat-title">Premium Courts</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" data-target="4.9" data-decimal>0</div>
+          <div class="stat-title">Average Rating</div>
+        </div>
+      </div>
+    </section>
 
-    <!--footer-->
-    <footer class="footer">
-  <div class="footer-container">
-    <div class="footer-section brand">
-      <h2>CourtCraze</h2>
-      <p>Premium futsal experience in the heart of the city. Where passion meets precision.</p>
-    </div>
+    <!-- CTA -->
+    <section class="cta-sec">
+      <h2>Ready to Play?</h2>
+      <p>
+        Join thousands of players already booking courts and earning rewards on
+        CourtCraze.
+      </p>
+      <a
+        href="register.html"
+        class="btn btn-primary"
+        style="font-size: 16px; padding: 16px 36px"
+      >
+        <i class="fas fa-bolt"></i> Get Started Free
+      </a>
+    </section>
 
-    <div class="footer-section contact">
-      <h3>Contact Info</h3>
-      <p><i class="fas fa-map-marker-alt"></i> BSOA , Bhaktapur District</p>
-      <p><i class="fas fa-phone"></i> 9744556763</p>
-      <p><i class="fas fa-envelope"></i> info@courtcraze.com</p>
-    </div>
+    <div id="site-footer"></div>
 
-    <div class="footer-section hours">
-      <h3>Operating Hours</h3>
-      <p><strong>Mon - Fri:</strong> 7:00 AM - 06:00 PM</p>
-      <p><strong>Sat - Sun:</strong> 6:00 AM - 07:00 AM</p>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <p>© 2024 CourtCraze. Crafted with excellence for champions.</p>
-  </div>
-</footer>
-
-    <script src="stat.js"></script>
-
-</body>
+    <script src="shared.js"></script>
+    <script>
+      // Scrolled nav shadow
+      window.addEventListener("scroll", () => {
+        document
+          .getElementById("landNav")
+          .classList.toggle("scrolled", scrollY > 40);
+      });
+      // Mobile menu
+      document.getElementById("landHam").addEventListener("click", () => {
+        document.getElementById("landMob").classList.toggle("open");
+      });
+      // Close mob menu on link click
+      document.querySelectorAll(".land-mob a").forEach((a) =>
+        a.addEventListener("click", () => {
+          document.getElementById("landMob").classList.remove("open");
+        }),
+      );
+      // Counter animation on scroll
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.querySelectorAll(".stat-number").forEach((el) => {
+              const target = parseFloat(el.dataset.target);
+              const isDecimal = el.hasAttribute("data-decimal");
+              let val = 0;
+              const step = target / 190;
+              const tick = () => {
+                val += step;
+                if (val < target) {
+                  el.textContent = isDecimal
+                    ? val.toFixed(1)
+                    : Math.floor(val).toLocaleString();
+                  requestAnimationFrame(tick);
+                } else {
+                  el.textContent = isDecimal
+                    ? target.toFixed(1)
+                    : target.toLocaleString() + "+";
+                }
+              };
+              tick();
+            });
+            observer.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.3 },
+      );
+      document.querySelector(".stats-sec") &&
+        observer.observe(document.querySelector(".stats-sec"));
+    </script>
+  </body>
 </html>

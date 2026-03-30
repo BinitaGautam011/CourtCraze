@@ -1,129 +1,677 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rewards Center</title>
-  <link rel="stylesheet" href="reward.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-</head>
-<body>
-  <div class="navbar">
-    <a class="dash" href="dashboard.html">Dashboard</a>
-    <div class="link">
-      <a href="Book.html">Book</a>
-      <a href="history.html">History</a>
-      <a href="reward.html">Rewards</a>
-      <a href="rating.html">Review & Rating</a>
-    </div>
-    </div>
-  
-  <br><br><br>
-  <div class="reward-container">
-    <h1 class="reward-header"><i class="fa-solid fa-gift"></i> Rewards Center</h1>
-    <p class="reward-subtitle">Earn, redeem, and track your achievements</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rewards | CourtCraze</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../shared.css" />
+    <style>
+      body {
+        padding-top: 82px;
+        background: var(--gray50);
+      }
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 32px 24px 80px;
+      }
+      .page-title {
+        font-family: var(--fd);
+        font-size: 40px;
+        letter-spacing: 1px;
+        color: var(--gray900);
+        margin-bottom: 4px;
+      }
+      .page-sub {
+        font-size: 15px;
+        color: var(--gray500);
+        margin-bottom: 32px;
+      }
 
-    <!-- Top Row: Coin + Achievements -->
-    <div class="top-row">
-      <!-- Coin Balance -->
-      <div class="reward-section coin-card">
-        <div class="section-header coin-icon">
-          <i class="fas fa-coins"></i>
-          <span>Coin Balance</span>
+      /* Balance Hero */
+      .balance-hero {
+        background: linear-gradient(135deg, var(--g900), var(--g700));
+        border-radius: var(--r-xl);
+        padding: 36px 40px;
+        margin-bottom: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        flex-wrap: wrap;
+        position: relative;
+        overflow: hidden;
+      }
+      .balance-hero::before,
+      .balance-hero::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .balance-hero::before {
+        width: 260px;
+        height: 260px;
+        right: -80px;
+        top: -80px;
+      }
+      .balance-hero::after {
+        width: 180px;
+        height: 180px;
+        right: 80px;
+        bottom: -90px;
+      }
+      .bh-left {
+        position: relative;
+        z-index: 1;
+      }
+      .bh-label {
+        font-size: 11px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+        margin-bottom: 8px;
+      }
+      .bh-amount {
+        font-family: var(--fd);
+        font-size: 76px;
+        color: #fff;
+        letter-spacing: 2px;
+        line-height: 1;
+      }
+      .bh-amount span {
+        font-size: 28px;
+        opacity: 0.65;
+      }
+      .bh-sub {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.55);
+        margin-top: 10px;
+      }
+      .bh-bar {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 10px;
+        height: 6px;
+        margin-top: 14px;
+        max-width: 300px;
+        overflow: hidden;
+      }
+      .bh-fill {
+        height: 100%;
+        background: var(--g400);
+        border-radius: 10px;
+        transition: width 1s ease;
+      }
+      .bh-right {
+        position: relative;
+        z-index: 1;
+      }
+      .redeem-btn {
+        background: rgba(255, 255, 255, 0.16);
+        border: 1.5px solid rgba(255, 255, 255, 0.3);
+        color: #fff;
+        padding: 14px 28px;
+        border-radius: var(--r-md);
+        font-family: var(--fb);
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          transform 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .redeem-btn:hover {
+        background: rgba(255, 255, 255, 0.26);
+        transform: translateY(-2px);
+      }
+
+      /* Grid */
+      .main-grid {
+        display: grid;
+        grid-template-columns: 2fr 1.2fr;
+        gap: 22px;
+        margin-bottom: 22px;
+      }
+      @media (max-width: 760px) {
+        .main-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .panel {
+        background: #fff;
+        border-radius: var(--r-lg);
+        border: 1px solid var(--gray100);
+        box-shadow: var(--sh-sm);
+      }
+      .ph {
+        padding: 18px 22px 14px;
+        border-bottom: 1px solid var(--gray100);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .ph h3 {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--gray900);
+      }
+      .ph i {
+        color: var(--g600);
+      }
+      .pb {
+        padding: 14px 20px;
+      }
+
+      /* Achievements */
+      .ach-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 13px 0;
+        border-bottom: 1px solid var(--gray100);
+      }
+      .ach-item:last-child {
+        border-bottom: none;
+      }
+      .ach-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: var(--r-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+      .ai-done {
+        background: var(--g100);
+        color: var(--g700);
+      }
+      .ai-locked {
+        background: var(--gray100);
+        color: var(--gray400);
+      }
+      .ach-text {
+        flex: 1;
+      }
+      .ach-text h4 {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--gray900);
+        margin-bottom: 2px;
+      }
+      .ach-text p {
+        font-size: 12px;
+        color: var(--gray500);
+      }
+      .mini-bar {
+        height: 4px;
+        background: var(--gray100);
+        border-radius: 2px;
+        margin-top: 7px;
+        max-width: 120px;
+        overflow: hidden;
+      }
+      .mini-fill {
+        height: 100%;
+        background: var(--g500);
+        border-radius: 2px;
+      }
+      .ach-right {
+        text-align: right;
+        flex-shrink: 0;
+      }
+      .coin-sm {
+        display: inline-block;
+        background: var(--g50);
+        color: var(--g700);
+        border: 1px solid var(--g200);
+        font-size: 12px;
+        font-weight: 600;
+        padding: 3px 9px;
+        border-radius: 10px;
+      }
+      .done-tag {
+        font-size: 11px;
+        color: var(--g600);
+        margin-top: 4px;
+      }
+      .prog-tag {
+        font-size: 11px;
+        color: var(--gray400);
+        margin-top: 4px;
+      }
+
+      /* Coin History */
+      .hist-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 11px 0;
+        border-bottom: 1px solid var(--gray100);
+      }
+      .hist-item:last-child {
+        border-bottom: none;
+      }
+      .hi-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+      .hi-plus {
+        background: var(--g100);
+        color: var(--g700);
+      }
+      .hi-minus {
+        background: #fee2e2;
+        color: #b91c1c;
+      }
+      .hi-body {
+        flex: 1;
+        font-size: 14px;
+        color: var(--gray700);
+      }
+      .hi-body small {
+        font-size: 12px;
+        color: var(--gray400);
+        display: block;
+      }
+      .hi-amount {
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .ha-plus {
+        color: var(--g600);
+      }
+      .ha-minus {
+        color: #b91c1c;
+      }
+
+      /* Redeem Modal */
+      .modal-bg {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.48);
+        z-index: 300;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal-bg.open {
+        display: flex;
+      }
+      .modal {
+        background: #fff;
+        border-radius: var(--r-xl);
+        padding: 38px 34px;
+        max-width: 420px;
+        width: 92%;
+        text-align: center;
+        box-shadow: var(--sh-lg);
+        animation: pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      @keyframes pop {
+        from {
+          transform: scale(0.82);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .modal-icon {
+        font-size: 50px;
+        color: var(--g500);
+        margin-bottom: 16px;
+      }
+      .modal h3 {
+        font-size: 22px;
+        font-weight: 600;
+        color: var(--gray900);
+        margin-bottom: 8px;
+      }
+      .modal .sub {
+        font-size: 14px;
+        color: var(--gray500);
+        margin-bottom: 24px;
+      }
+      .redeem-opts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .ropt {
+        border: 1.5px solid var(--gray200);
+        border-radius: var(--r-md);
+        padding: 16px 10px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .ropt:hover {
+        border-color: var(--g400);
+        background: var(--g50);
+      }
+      .ropt .rc {
+        font-family: var(--fd);
+        font-size: 26px;
+        color: var(--g600);
+      }
+      .ropt .rl {
+        font-size: 12px;
+        color: var(--gray500);
+        margin-top: 3px;
+      }
+      .close-btn {
+        width: 100%;
+        padding: 11px;
+        background: var(--gray100);
+        color: var(--gray700);
+        border: none;
+        border-radius: var(--r-md);
+        font-family: var(--fb);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .close-btn:hover {
+        background: var(--gray200);
+      }
+
+      /* Success toast */
+      .toast {
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        background: var(--g700);
+        color: #fff;
+        padding: 14px 20px;
+        border-radius: var(--r-lg);
+        font-size: 14px;
+        font-weight: 500;
+        box-shadow: var(--sh-lg);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transform: translateY(80px);
+        opacity: 0;
+        transition:
+          transform 0.35s,
+          opacity 0.35s;
+        z-index: 400;
+      }
+      .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1 class="page-title">Rewards Center</h1>
+      <p class="page-sub">Earn, track and redeem your CrazeCoins.</p>
+
+      <!-- Balance Hero -->
+      <div class="balance-hero">
+        <div class="bh-left">
+          <div class="bh-label">
+            <i class="fas fa-coins"></i> Your CrazeCoins
+          </div>
+          <div class="bh-amount" id="coinDisplay">1,250 <span>coins</span></div>
+          <div class="bh-bar">
+            <div class="bh-fill" style="width: 50%"></div>
+          </div>
+          <div class="bh-sub">
+            250 more coins until your next free session (500 required)
+          </div>
         </div>
-        <p class="section-subtitle">Your total balance</p>
-        <h2 style="color: #ca8a04;">1000 Coins</h2>
+        <div class="bh-right">
+          <button class="redeem-btn" onclick="openRedeem()">
+            <i class="fas fa-gift"></i> Redeem Coins
+          </button>
+        </div>
       </div>
 
-      <!-- Achievements -->
-      <div class="reward-section achievement-card">
-        <div class="section-header achievement-icon">
-          <i class="fas fa-medal"></i>
-          <span>Achievements</span>
-        </div>
-        <p class="section-subtitle">Unlock milestones and earn more coins</p>
-        <div class="achievement-list">
-          <div class="achievement-item">
-            <i class="fas fa-check-circle item-icon"></i>
-            <div class="item-content">
-              <div class="item-title">Book 5 games</div>
-              <div class="item-description">Complete 5 bookings to earn bonus coins</div>
+      <!-- Main grid -->
+      <div class="main-grid">
+        <!-- Achievements -->
+        <div class="panel">
+          <div class="ph">
+            <i class="fas fa-medal"></i>
+            <h3>Achievements</h3>
+          </div>
+          <div class="pb">
+            <div class="ach-item">
+              <div class="ach-icon ai-done"><i class="fas fa-check"></i></div>
+              <div class="ach-text">
+                <h4>First Booking</h4>
+                <p>Make your first court reservation</p>
+              </div>
+              <div class="ach-right">
+                <span class="coin-sm">+50 coins</span>
+                <div class="done-tag">✓ Completed</div>
+              </div>
+            </div>
+            <div class="ach-item">
+              <div class="ach-icon ai-done"><i class="fas fa-check"></i></div>
+              <div class="ach-text">
+                <h4>5 Bookings</h4>
+                <p>Complete 5 reservations</p>
+                <div class="mini-bar">
+                  <div class="mini-fill" style="width: 100%"></div>
+                </div>
+              </div>
+              <div class="ach-right">
+                <span class="coin-sm">+100 coins</span>
+                <div class="done-tag">✓ Completed</div>
+              </div>
+            </div>
+            <div class="ach-item">
+              <div class="ach-icon ai-locked"><i class="fas fa-lock"></i></div>
+              <div class="ach-text">
+                <h4>10 Bookings</h4>
+                <p>Reach 10 total bookings</p>
+                <div class="mini-bar">
+                  <div class="mini-fill" style="width: 70%"></div>
+                </div>
+              </div>
+              <div class="ach-right">
+                <span class="coin-sm">+200 coins</span>
+                <div class="prog-tag">7 / 10</div>
+              </div>
+            </div>
+            <div class="ach-item">
+              <div class="ach-icon ai-locked">
+                <i class="fas fa-calendar-week"></i>
+              </div>
+              <div class="ach-text">
+                <h4>3-Week Streak</h4>
+                <p>Play for 3 consecutive weeks</p>
+                <div class="mini-bar">
+                  <div class="mini-fill" style="width: 33%"></div>
+                </div>
+              </div>
+              <div class="ach-right">
+                <span class="coin-sm">+150 coins</span>
+                <div class="prog-tag">1 / 3</div>
+              </div>
+            </div>
+            <div class="ach-item">
+              <div class="ach-icon ai-locked"><i class="fas fa-star"></i></div>
+              <div class="ach-text">
+                <h4>Leave 5 Reviews</h4>
+                <p>Help the community by reviewing courts</p>
+                <div class="mini-bar">
+                  <div class="mini-fill" style="width: 40%"></div>
+                </div>
+              </div>
+              <div class="ach-right">
+                <span class="coin-sm">+75 coins</span>
+                <div class="prog-tag">2 / 5</div>
+              </div>
+            </div>
+            <div class="ach-item">
+              <div class="ach-icon ai-locked">
+                <i class="fas fa-user-plus"></i>
+              </div>
+              <div class="ach-text">
+                <h4>Refer a Friend</h4>
+                <p>Invite a friend who joins CourtCraze</p>
+              </div>
+              <div class="ach-right">
+                <span class="coin-sm">+75 coins</span>
+                <div class="prog-tag">0 / 1</div>
+              </div>
             </div>
           </div>
-          <div class="achievement-item">
-            <i class="fas fa-user-friends item-icon"></i>
-            <div class="item-content">
-              <div class="item-title">Invite a friend</div>
-              <div class="item-description">Get bonus when they join</div>
+        </div>
+
+        <!-- Coin History -->
+        <div class="panel">
+          <div class="ph">
+            <i class="fas fa-clock-rotate-left"></i>
+            <h3>Coin History</h3>
+          </div>
+          <div class="pb" id="coinHistory">
+            <div class="hist-item">
+              <div class="hi-icon hi-plus">
+                <i class="fas fa-calendar-check"></i>
+              </div>
+              <div class="hi-body">
+                Booking completed<small>Court A · Jun 18</small>
+              </div>
+              <div class="hi-amount ha-plus">+10</div>
+            </div>
+            <div class="hist-item">
+              <div class="hi-icon hi-plus"><i class="fas fa-star"></i></div>
+              <div class="hi-body">Review submitted<small>Jun 18</small></div>
+              <div class="hi-amount ha-plus">+5</div>
+            </div>
+            <div class="hist-item">
+              <div class="hi-icon hi-plus"><i class="fas fa-sun"></i></div>
+              <div class="hi-body">Daily login<small>Jun 17</small></div>
+              <div class="hi-amount ha-plus">+2</div>
+            </div>
+            <div class="hist-item">
+              <div class="hi-icon hi-minus"><i class="fas fa-times"></i></div>
+              <div class="hi-body">Booking cancelled<small>May 20</small></div>
+              <div class="hi-amount ha-minus">−10</div>
+            </div>
+            <div class="hist-item">
+              <div class="hi-icon hi-plus"><i class="fas fa-medal"></i></div>
+              <div class="hi-body">
+                Achievement: 5 Bookings<small>May 12</small>
+              </div>
+              <div class="hi-amount ha-plus">+100</div>
+            </div>
+            <div class="hist-item">
+              <div class="hi-icon hi-plus">
+                <i class="fas fa-user-plus"></i>
+              </div>
+              <div class="hi-body">Sign-up bonus<small>Apr 1</small></div>
+              <div class="hi-amount ha-plus">+50</div>
             </div>
           </div>
-          <div class="achievement-item">
-            <i class="fas fa-calendar-check item-icon"></i>
-            <div class="item-content">
-              <div class="item-title">Play 3 weeks in a row</div>
-              <div class="item-description">Stay consistent for rewards</div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
 
-    <!-- Bottom Row: Coin History -->
-    <div class="reward-section">
-      <div class="section-header history-card">
-        <i class="fas fa-clock-rotate-left"></i>
-        <span>Coin History</span>
+    <!-- Redeem Modal -->
+    <div class="modal-bg" id="redeemModal">
+      <div class="modal">
+        <div class="modal-icon"><i class="fas fa-gift"></i></div>
+        <h3>Redeem CrazeCoins</h3>
+        <p class="sub">
+          Pick a reward below. Your balance:
+          <strong id="balInModal">1,250 coins</strong>
+        </p>
+        <div class="redeem-opts">
+          <div class="ropt" onclick="redeem(500, '1 Free Session')">
+            <div class="rc">500</div>
+            <div class="rl">1 Free Session</div>
+          </div>
+          <div class="ropt" onclick="redeem(200, '20% Discount')">
+            <div class="rc">200</div>
+            <div class="rl">20% Off Next Booking</div>
+          </div>
+          <div class="ropt" onclick="redeem(100, 'Free Drink')">
+            <div class="rc">100</div>
+            <div class="rl">Free Refreshment</div>
+          </div>
+          <div class="ropt" onclick="redeem(50, 'Priority Access')">
+            <div class="rc">50</div>
+            <div class="rl">Priority Slot Access</div>
+          </div>
+        </div>
+        <button class="close-btn" onclick="closeRedeem()">Cancel</button>
       </div>
-      <p class="section-subtitle">Track your earnings and spending</p>
-      <div class="coin-history-list">
-        <div class="coin-history-item">
-          <i class="fas fa-check-circle item-icon"></i>
-          <div class="item-content">
-            <div class="item-title">+10 Coins – Booking Completed</div>
-          </div>
-        </div>
-        <div class="coin-history-item">
-          <i class="fas fa-calendar-day item-icon"></i>
-          <div class="item-content">
-            <div class="item-title">+5 Coins – Daily Login</div>
-          </div>
-        </div>
-        <div class="coin-history-item">
-          <i class="fas fa-times-circle item-icon"></i>
-          <div class="item-content">
-            <div class="item-title">-10 Coins – Cancelled Booking</div>
-          </div>
-        </div>
-      </div>
     </div>
 
-  </div>
-</body>
-<!--footer-->
-    <footer class="footer">
-  <div class="footer-container">
-    <div class="footer-section brand">
-      <h2>CourtCraze</h2>
-      <p>Premium futsal experience in the heart of the city<br>
-         Where passion meets precision.</p>
+    <!-- Toast -->
+    <div class="toast" id="toast">
+      <i class="fas fa-check-circle"></i><span id="toastMsg"></span>
     </div>
 
-    <div class="footer-section contact">
-      <h3>Contact Info</h3>
-      <p><i class="fas fa-map-marker-alt"></i> BSOA , Bhaktapur District</p>
-      <p><i class="fas fa-phone"></i> 9744556763</p>
-      <p><i class="fas fa-envelope"></i> info@courtcraze.com</p>
-    </div>
+    <div id="site-footer"></div>
+    <script src="../shared.js"></script>
+    <script>
+      let balance = 1250;
 
-    <div class="footer-section hours">
-      <h3>Operating Hours</h3>
-      <p><strong>Mon - Fri:</strong> 7:00 AM - 06:00 PM</p>
-      <p><strong>Sat - Sun:</strong> 6:00 AM - 07:00 AM</p>
-    </div>
-  </div>
+      function openRedeem() {
+        document.getElementById("balInModal").textContent =
+          balance.toLocaleString() + " coins";
+        document.getElementById("redeemModal").classList.add("open");
+      }
+      function closeRedeem() {
+        document.getElementById("redeemModal").classList.remove("open");
+      }
 
-  <div class="footer-bottom">
-    <p>© 2024 CourtCraze. Crafted with excellence for champions.</p>
-  </div>
-</footer>
+      function redeem(cost, label) {
+        if (balance < cost) {
+          showToast("Not enough coins! Need " + cost + " coins.");
+          closeRedeem();
+          return;
+        }
+        balance -= cost;
+        document.getElementById("coinDisplay").innerHTML =
+          balance.toLocaleString() + " <span>coins</span>";
+        document.getElementById("balInModal").textContent =
+          balance.toLocaleString() + " coins";
+        // Add to history
+        const hist = document.getElementById("coinHistory");
+        const row = document.createElement("div");
+        row.className = "hist-item";
+        row.innerHTML = `<div class="hi-icon hi-minus"><i class="fas fa-gift"></i></div><div class="hi-body">Redeemed: ${label}<small>Just now</small></div><div class="hi-amount ha-minus">−${cost}</div>`;
+        hist.prepend(row);
+        closeRedeem();
+        showToast("🎉 Redeemed: " + label + "! −" + cost + " coins");
+      }
+
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        document.getElementById("toastMsg").textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 3500);
+      }
+    </script>
+  </body>
 </html>

@@ -1,226 +1,822 @@
-<!DOCTYPE html>
-<html lang="ne">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Calendar</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f4f4f9;
-      margin: 0; padding: 0;
-    }
-    .calendar-container {
-      width: 700px; margin: 50px auto; padding: 20px;
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    .calendar-header {
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
-    }
-    #month-year {
-      font-size: 1.2rem; font-weight: bold;
-    }
-    button {
-      background-color: #4caf50; color: white; border: none;
-      padding: 5px 10px; cursor: pointer; border-radius: 5px;
-    }
-    button:hover { background-color: #45a049; }
-    table {
-      width: 100%; border-collapse: collapse;
-    }
-    th, td {
-      width: 14.28%;
-      text-align: center;
-      padding: 8px;
-      border: 1px solid #ddd;
-      user-select: none;
-    }
-    td { cursor: pointer; }
-    td:hover { background-color: #4caf50 }
-    .selected {
-      background-color: #4caf50;
-      color: white;
-    }
-    .disabled {
-      color: #ccc;
-      cursor: not-allowed;
-    }
-    h1,h3 { 
-      text-align: center;
-     }
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book a Court | CourtCraze</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../shared.css" />
+    <style>
+      body {
+        padding-top: 82px;
+        background: var(--gray50);
+      }
+      .wrap {
+        max-width: 1060px;
+        margin: 0 auto;
+        padding: 32px 24px 80px;
+      }
+      .page-title {
+        font-family: var(--fd);
+        font-size: 40px;
+        letter-spacing: 1px;
+        color: var(--gray900);
+        margin-bottom: 4px;
+      }
+      .page-sub {
+        font-size: 15px;
+        color: var(--gray500);
+        margin-bottom: 32px;
+      }
 
+      /* Layout */
+      .book-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr;
+        gap: 24px;
+      }
+      @media (max-width: 780px) {
+        .book-grid {
+          grid-template-columns: 1fr;
+        }
+      }
 
-   .navbar{
-  background-color: #e8f0e8;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 30px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-   position: fixed; 
-  top: 0px; 
-  left: 0px; 
-  right: 0px; 
-  z-index: 1; 
+      .panel {
+        background: #fff;
+        border-radius: var(--r-lg);
+        border: 1px solid var(--gray100);
+        box-shadow: var(--sh-sm);
+        overflow: hidden;
+      }
+      .ph {
+        padding: 18px 22px 14px;
+        border-bottom: 1px solid var(--gray100);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--gray900);
+      }
+      .ph i {
+        color: var(--g600);
+      }
+      .pb {
+        padding: 20px;
+      }
 
-}
+      /* Calendar */
+      .cal-hdr {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+      .cal-month {
+        font-family: var(--fd);
+        font-size: 24px;
+        letter-spacing: 1px;
+        color: var(--gray900);
+      }
+      .cal-nav-btn {
+        width: 32px;
+        height: 32px;
+        border: none;
+        border-radius: var(--r-md);
+        background: var(--g50);
+        color: var(--g700);
+        font-size: 13px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .cal-nav-btn:hover {
+        background: var(--g100);
+      }
+      .cal-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 3px;
+      }
+      .cal-dh {
+        text-align: center;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--gray400);
+        padding: 3px 0 8px;
+      }
+      .cal-day {
+        aspect-ratio: 1;
+        border-radius: var(--r-md);
+        border: none;
+        background: none;
+        font-size: 13px;
+        font-family: var(--fb);
+        color: var(--gray700);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      .cal-day:hover:not(.dis):not(.emp) {
+        background: var(--g50);
+        color: var(--g700);
+      }
+      .cal-day.sel {
+        background: var(--g600);
+        color: #fff;
+        font-weight: 600;
+      }
+      .cal-day.today:not(.sel) {
+        color: var(--g600);
+        font-weight: 600;
+        border: 1.5px solid var(--g300, #86efac);
+      }
+      .cal-day.dis {
+        color: var(--gray300, #d1d5db);
+        cursor: not-allowed;
+      }
+      .cal-day.emp {
+        pointer-events: none;
+      }
 
-.navbar h2{
-  color: #28a745;
-  font-size: 1.5rem;
-}
-.dash {
-     text-decoration: none;
-  margin-left: 20px;
-  color: #2a2a2a;
-  font-weight: 500;
-  padding: 8px 16px;
-  border-radius: 8px;
-  transition: background-color 0.2s;
-}
-.dash:hover {
-    background-color: #d4f5d7;
-}
+      /* Court selector */
+      .court-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      .cr {
+        display: none;
+      }
+      .cr-lbl {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        padding: 12px 8px;
+        border-radius: var(--r-md);
+        border: 1.5px solid var(--gray200);
+        background: var(--gray50);
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--gray700);
+        text-align: center;
+        transition: all 0.2s;
+      }
+      .cr-lbl i {
+        font-size: 18px;
+        color: var(--gray400);
+        transition: color 0.2s;
+      }
+      .cr:checked + .cr-lbl {
+        border-color: var(--g600);
+        background: var(--g50);
+        color: var(--g700);
+      }
+      .cr:checked + .cr-lbl i {
+        color: var(--g600);
+      }
 
-.link a{
-  text-decoration: none;
-  margin-left: 20px;
-  color: #2a2a2a;
-  font-weight: 500;
-  padding: 8px 16px;
-  border-radius: 8px;
-  transition: background-color 0.2s;
-}
+      /* Slots */
+      .slots-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      .slot {
+        padding: 10px 6px;
+        border-radius: var(--r-md);
+        border: 1.5px solid var(--gray200);
+        background: #fff;
+        font-family: var(--fb);
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--gray700);
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.2s;
+      }
+      .slot:hover:not(.booked) {
+        border-color: var(--g400);
+        color: var(--g700);
+        background: var(--g50);
+      }
+      .slot.sel {
+        border-color: var(--g600);
+        background: var(--g600);
+        color: #fff;
+      }
+      .slot.booked {
+        background: var(--gray100);
+        color: var(--gray400);
+        cursor: not-allowed;
+        border-color: var(--gray100);
+        font-size: 11px;
+      }
+      .slot-legend {
+        display: flex;
+        gap: 14px;
+        margin-top: 12px;
+        font-size: 12px;
+        color: var(--gray500);
+      }
+      .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 4px;
+      }
+      .da {
+        background: var(--g500);
+      }
+      .db {
+        background: var(--gray300);
+      }
+      .ds {
+        background: var(--g700);
+      }
 
-.link a:hover{
-  background-color: #d4f5d7;
-}
-.month{
-  margin-left: 140px;
-  text-align: center;
-}
+      /* Duration selector */
+      .dur-btns {
+        display: flex;
+        gap: 8px;
+      }
+      .dur-btn {
+        flex: 1;
+        padding: 10px;
+        border: 1.5px solid var(--gray200);
+        border-radius: var(--r-md);
+        background: var(--gray50);
+        font-family: var(--fb);
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--gray700);
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.2s;
+      }
+      .dur-btn:hover {
+        border-color: var(--g400);
+        color: var(--g700);
+        background: var(--g50);
+      }
+      .dur-btn.sel {
+        border-color: var(--g600);
+        background: var(--g50);
+        color: var(--g700);
+        font-weight: 600;
+      }
 
-.footer {
-  background: linear-gradient(135deg, #1c462a, #024f33);
-  color: #f0f0f0;
-  padding: 40px 20px 20px;
-  font-family: 'Segoe UI',sans-serif;
-  margin-left: -20px;
-  margin-right: -20px;
-  margin-bottom: -20px;
-}
+      /* Summary */
+      .summ-box {
+        background: var(--gray50);
+        border-radius: var(--r-md);
+        padding: 16px 18px;
+        border: 1px solid var(--gray200);
+      }
+      .summ-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        color: var(--gray600);
+        padding: 5px 0;
+      }
+      .summ-row span:last-child {
+        font-weight: 500;
+        color: var(--gray900);
+      }
+      .summ-row.total {
+        border-top: 1px dashed var(--gray300);
+        margin-top: 8px;
+        padding-top: 12px;
+      }
+      .coin-tag {
+        font-size: 12px;
+        color: var(--g700);
+        background: var(--g50);
+        padding: 3px 10px;
+        border-radius: 12px;
+        border: 1px solid var(--g200);
+      }
 
-.footer-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: auto;
-  gap: 15px;
-}
+      .confirm-btn {
+        width: 100%;
+        padding: 14px;
+        margin-top: 16px;
+        background: var(--g600);
+        color: #fff;
+        border: none;
+        border-radius: var(--r-md);
+        font-family: var(--fb);
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          transform 0.2s,
+          box-shadow 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .confirm-btn:hover:not(:disabled) {
+        background: var(--g700);
+        transform: translateY(-2px);
+        box-shadow: var(--sh-g);
+      }
+      .confirm-btn:disabled {
+        background: var(--gray300);
+        cursor: not-allowed;
+      }
 
-.footer-section {
-  flex: 1 1 300px;
-}
-.footer-section h2,h3 {
-  color: #cdddac;
-  font-size: 12px;
-  margin-bottom: 10px;
-}
-.footer-section p{
-  margin: 6px 0;
-}
-.footer-bottom {
-  text-align: center;
-  padding-top: 20px;
-  /* border-top: 1px solid #575050; */
-  margin-top: 20px;
-  font-size: 14px;
-  color: white;
-}
+      /* Right column stack */
+      .right-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
 
-.footer-section i{
-    margin-right: 8px;
-    color: #cdddac;
-}
-  </style>
-</head>
-<body>
-  <div class="navbar">
-    <a class="dash" href="dashboard.html">Dashboard</a>
-    <div class="link">
-      <a href="Book.html">Book</a>
-      <a href="history.html">History</a>
-      <a href="reward.html">Rewards</a>
-      <a href="rating.html">Review & Rating</a>
+      .section-gap {
+        margin-bottom: 14px;
+      }
+
+      /* Modal */
+      .modal-bg {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.48);
+        z-index: 300;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal-bg.open {
+        display: flex;
+      }
+      .modal {
+        background: #fff;
+        border-radius: var(--r-xl);
+        padding: 40px 36px;
+        max-width: 400px;
+        width: 92%;
+        text-align: center;
+        box-shadow: var(--sh-lg);
+        animation: pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      @keyframes pop {
+        from {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .modal-icon {
+        font-size: 52px;
+        color: var(--g500);
+        margin-bottom: 18px;
+      }
+      .modal h3 {
+        font-size: 22px;
+        font-weight: 600;
+        color: var(--gray900);
+        margin-bottom: 10px;
+      }
+      .modal p {
+        font-size: 14px;
+        color: var(--gray500);
+        margin-bottom: 10px;
+        line-height: 1.6;
+      }
+      .modal .coin-award {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--g50);
+        border: 1px solid var(--g200);
+        color: var(--g700);
+        font-weight: 600;
+        padding: 7px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        margin: 12px 0 20px;
+      }
+      .modal .mbtn {
+        width: 100%;
+        padding: 13px;
+        background: var(--g600);
+        color: #fff;
+        border: none;
+        border-radius: var(--r-md);
+        font-family: var(--fb);
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .modal .mbtn:hover {
+        background: var(--g700);
+      }
+
+      .section-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--gray700);
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1 class="page-title">Book Your Court</h1>
+      <p class="page-sub">
+        Choose a date, pick your court and time — done in seconds.
+      </p>
+
+      <div class="book-grid">
+        <!-- Calendar panel -->
+        <div class="panel">
+          <div class="ph"><i class="fas fa-calendar-alt"></i> Select Date</div>
+          <div class="pb">
+            <div class="cal-hdr">
+              <button class="cal-nav-btn" id="prevBtn">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <span class="cal-month" id="calMonth"></span>
+              <button class="cal-nav-btn" id="nextBtn">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            <div class="cal-grid" id="calGrid">
+              <div class="cal-dh">Su</div>
+              <div class="cal-dh">Mo</div>
+              <div class="cal-dh">Tu</div>
+              <div class="cal-dh">We</div>
+              <div class="cal-dh">Th</div>
+              <div class="cal-dh">Fr</div>
+              <div class="cal-dh">Sa</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right column -->
+        <div class="right-stack">
+          <!-- Court selector -->
+          <div class="panel">
+            <div class="ph"><i class="fas fa-futbol"></i> Choose Court</div>
+            <div class="pb">
+              <div class="court-grid">
+                <input
+                  type="radio"
+                  name="court"
+                  id="cA"
+                  value="Court A"
+                  class="cr"
+                  checked
+                />
+                <label for="cA" class="cr-lbl"
+                  ><i class="fas fa-square-full"></i> Court A<span
+                    style="font-size: 11px; color: var(--gray400)"
+                    >Premium Turf</span
+                  ></label
+                >
+                <input
+                  type="radio"
+                  name="court"
+                  id="cB"
+                  value="Court B"
+                  class="cr"
+                />
+                <label for="cB" class="cr-lbl"
+                  ><i class="fas fa-square-full"></i> Court B<span
+                    style="font-size: 11px; color: var(--gray400)"
+                    >Floodlit</span
+                  ></label
+                >
+                <input
+                  type="radio"
+                  name="court"
+                  id="cC"
+                  value="Court C"
+                  class="cr"
+                />
+                <label for="cC" class="cr-lbl"
+                  ><i class="fas fa-square-full"></i> Court C<span
+                    style="font-size: 11px; color: var(--gray400)"
+                    >Indoor</span
+                  ></label
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Duration -->
+          <div class="panel">
+            <div class="ph"><i class="fas fa-hourglass-half"></i> Duration</div>
+            <div class="pb">
+              <div class="dur-btns">
+                <button
+                  class="dur-btn sel"
+                  data-dur="1"
+                  onclick="selectDur(this, 1)"
+                >
+                  1 Hour
+                </button>
+                <button
+                  class="dur-btn"
+                  data-dur="2"
+                  onclick="selectDur(this, 2)"
+                >
+                  2 Hours
+                </button>
+                <button
+                  class="dur-btn"
+                  data-dur="3"
+                  onclick="selectDur(this, 3)"
+                >
+                  3 Hours
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Time slots -->
+          <div class="panel">
+            <div class="ph"><i class="fas fa-clock"></i> Pick Time Slot</div>
+            <div class="pb">
+              <div class="slots-grid" id="slotsGrid"></div>
+              <div class="slot-legend">
+                <span><span class="dot da"></span>Available</span>
+                <span><span class="dot db"></span>Booked</span>
+                <span><span class="dot ds"></span>Selected</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Summary + Confirm -->
+          <div class="panel">
+            <div class="ph"><i class="fas fa-receipt"></i> Booking Summary</div>
+            <div class="pb">
+              <div class="summ-box">
+                <div class="summ-row">
+                  <span>Date</span> <span id="sDate">—</span>
+                </div>
+                <div class="summ-row">
+                  <span>Court</span> <span id="sCourt">—</span>
+                </div>
+                <div class="summ-row">
+                  <span>Time</span> <span id="sTime">—</span>
+                </div>
+                <div class="summ-row">
+                  <span>Duration</span><span id="sDuration">1 hour</span>
+                </div>
+                <div class="summ-row total">
+                  <span>Coins Earned</span
+                  ><span class="coin-tag" id="sCoins">+10 CrazeCoins</span>
+                </div>
+              </div>
+              <button
+                class="confirm-btn"
+                id="confirmBtn"
+                disabled
+                onclick="openModal()"
+              >
+                <i class="fas fa-bolt"></i> Confirm Booking
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    </div>
-  <br><Br><br><br><br>
-  <h1>Book Your court</h1>
-  <h3>Choose your preferred date and time</h3>
-  <div class="calendar-container">
-    <div class="calendar-header">
-      <button id="prev-month">&lt;</button>
-      <h2 class="month">July 2025</h2>
-      <h2 id="month-year"></h2>
-      <button id="next-month">&gt;</button>
-    </div>
-    <table id="calendar">
-      <thead>
-        <tr>
-          <th>Sun</th><th>Mon</th><th>Tue</th>
-          <th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-  </div>
-  <!--footer-->
-    <footer class="footer">
-  <div class="footer-container">
-    <div class="footer-section brand">
-      <h2>CourtCraze</h2>
-      <p>Premium futsal experience in the heart of the city. Where passion meets precision.</p>
+
+    <!-- Success Modal -->
+    <div class="modal-bg" id="modalBg">
+      <div class="modal">
+        <div class="modal-icon"><i class="fas fa-check-circle"></i></div>
+        <h3>Booking Confirmed!</h3>
+        <div class="coin-award">
+          <i class="fas fa-coins"></i>
+          <span id="modalCoins">+10 CrazeCoins</span> Earned
+        </div>
+        <p id="modalDetail">Your court is reserved. See you on the pitch!</p>
+        <button class="mbtn" onclick="window.location.href = 'dashboard.html'">
+          Back to Dashboard
+        </button>
+      </div>
     </div>
 
-    <div class="footer-section contact">
-      <h3>Contact Info</h3>
-      <p><i class="fas fa-map-marker-alt"></i> BSOA , Bhaktapur District</p>
-      <p><i class="fas fa-phone"></i> 9744556763</p>
-      <p><i class="fas fa-envelope"></i> info@courtcraze.com</p>
-    </div>
-
-    <div class="footer-section hours">
-      <h3>Operating Hours</h3>
-      <p><strong>Mon - Fri:</strong> 7:00 AM - 06:00 PM</p>
-      <p><strong>Sat - Sun:</strong> 6:00 AM - 07:00 AM</p>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <p>© 2024 CourtCraze. Crafted with excellence for champions.</p>
-  </div>
-</footer>
-
+    <div id="site-footer"></div>
+    <script src="../shared.js"></script>
     <script>
-    const t=new Date(),d=t.getDate(),m=t.getMonth(),y=t.getFullYear(),b=document.querySelector("tbody");
-    let day=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate(),r=document.createElement("tr");
-    for(let i=0;i<day;i++)r.appendChild(document.createElement("td"));
-    for(let i=1;i<=days;i++){
-      const c=document.createElement("td");
-      c.textContent=i;
-      if(i<d)c.className="disabled";
-      else c.onclick=()=>alert(`${i}-${m+1}-${y}`);
-      r.appendChild(c);
-      if(r.children.length===7)b.appendChild(r),r=document.createElement("tr");
-    }
-    b.appendChild(r);
-  </script>
-</script>
-</body>
+      const MONTHS = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      const TIMES = [
+        "7:00 AM",
+        "8:00 AM",
+        "9:00 AM",
+        "10:00 AM",
+        "11:00 AM",
+        "12:00 PM",
+        "1:00 PM",
+        "2:00 PM",
+        "3:00 PM",
+        "4:00 PM",
+        "5:00 PM",
+        "6:00 PM",
+      ];
+      const PRE_BOOKED = {
+        "Court A": ["9:00 AM", "2:00 PM", "5:00 PM"],
+        "Court B": ["8:00 AM", "11:00 AM", "4:00 PM"],
+        "Court C": ["7:00 AM", "1:00 PM", "6:00 PM"],
+      };
+
+      let state = {
+        year: 0,
+        month: 0,
+        selDate: null,
+        selSlot: null,
+        selCourt: "Court A",
+        selDur: 1,
+      };
+
+      function init() {
+        const now = new Date();
+        state.year = now.getFullYear();
+        state.month = now.getMonth();
+        renderCal();
+        renderSlots();
+      }
+
+      function renderCal() {
+        const { year, month, selDate } = state;
+        document.getElementById("calMonth").textContent =
+          MONTHS[month] + " " + year;
+        const first = new Date(year, month, 1).getDay();
+        const days = new Date(year, month + 1, 0).getDate();
+        const today = new Date();
+        const grid = document.getElementById("calGrid");
+        grid.querySelectorAll(".cal-day,.cal-emp").forEach((e) => e.remove());
+        for (let i = 0; i < first; i++) {
+          const e = document.createElement("div");
+          e.className = "cal-day emp";
+          grid.appendChild(e);
+        }
+        for (let d = 1; d <= days; d++) {
+          const btn = document.createElement("button");
+          btn.className = "cal-day";
+          btn.textContent = d;
+          const dt = new Date(year, month, d);
+          const todayDate = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate(),
+          );
+          if (dt < todayDate) {
+            btn.classList.add("dis");
+          } else {
+            if (dt.getTime() === todayDate.getTime())
+              btn.classList.add("today");
+            if (selDate === `${year}-${month}-${d}`) btn.classList.add("sel");
+            btn.onclick = () => {
+              state.selDate = `${year}-${month}-${d}`;
+              state.selSlot = null;
+              renderCal();
+              renderSlots();
+              updateSumm();
+            };
+          }
+          grid.appendChild(btn);
+        }
+      }
+
+      function renderSlots() {
+        const grid = document.getElementById("slotsGrid");
+        grid.innerHTML = "";
+        const booked = PRE_BOOKED[state.selCourt] || [];
+        TIMES.forEach((t) => {
+          const btn = document.createElement("button");
+          btn.className = "slot";
+          btn.textContent = t;
+          if (booked.includes(t)) {
+            btn.classList.add("booked");
+            btn.textContent = t + " ✗";
+            btn.disabled = true;
+          } else if (state.selSlot === t) btn.classList.add("sel");
+          if (!booked.includes(t))
+            btn.onclick = () => {
+              state.selSlot = t;
+              renderSlots();
+              updateSumm();
+            };
+          grid.appendChild(btn);
+        });
+      }
+
+      function updateSumm() {
+        const { selDate, selSlot, selCourt, selDur, year, month } = state;
+        if (selDate) {
+          const d = selDate.split("-")[2];
+          document.getElementById("sDate").textContent =
+            MONTHS[month] + " " + d + ", " + year;
+        }
+        document.getElementById("sCourt").textContent = selCourt;
+        document.getElementById("sTime").textContent = selSlot || "—";
+        document.getElementById("sDuration").textContent =
+          selDur + " hour" + (selDur > 1 ? "s" : "");
+        const coins = selDur * 10;
+        document.getElementById("sCoins").textContent =
+          "+" + coins + " CrazeCoins";
+        document.getElementById("confirmBtn").disabled = !(selDate && selSlot);
+      }
+
+      function selectDur(btn, d) {
+        document
+          .querySelectorAll(".dur-btn")
+          .forEach((b) => b.classList.remove("sel"));
+        btn.classList.add("sel");
+        state.selDur = d;
+        updateSumm();
+      }
+
+      function openModal() {
+        const { selDate, selSlot, selCourt, selDur, year, month } = state;
+        const d = selDate.split("-")[2];
+        document.getElementById("modalDetail").textContent =
+          selCourt +
+          " · " +
+          MONTHS[month] +
+          " " +
+          d +
+          ", " +
+          year +
+          " · " +
+          selSlot +
+          " · " +
+          selDur +
+          " hr";
+        document.getElementById("modalCoins").textContent =
+          "+" + selDur * 10 + " CrazeCoins";
+        document.getElementById("modalBg").classList.add("open");
+      }
+
+      document.getElementById("prevBtn").onclick = () => {
+        if (state.month === 0) {
+          state.month = 11;
+          state.year--;
+        } else state.month--;
+        state.selDate = null;
+        renderCal();
+        updateSumm();
+      };
+      document.getElementById("nextBtn").onclick = () => {
+        if (state.month === 11) {
+          state.month = 0;
+          state.year++;
+        } else state.month++;
+        state.selDate = null;
+        renderCal();
+        updateSumm();
+      };
+      document.querySelectorAll(".cr").forEach((r) =>
+        r.addEventListener("change", () => {
+          state.selCourt = r.value;
+          state.selSlot = null;
+          renderSlots();
+          updateSumm();
+        }),
+      );
+
+      init();
+    </script>
+  </body>
 </html>

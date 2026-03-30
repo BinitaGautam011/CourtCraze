@@ -1,41 +1,446 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register | Futsal Booking</title>
-  <link rel="stylesheet" href="register.css">
-</head>
-<body>
-  <div class="container">
-    <h2>Join CourtCraze</h2>
-    <p>Create your account and start booking</p>
-    <form>
-      <div class="input-group">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" placeholder="Enter your full name" required>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register | CourtCraze</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="shared.css" />
+    <style>
+      body {
+        min-height: 100vh;
+        display: flex;
+        background: #fff;
+      }
+
+      .auth-left {
+        flex: 1;
+        display: none;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(155deg, var(--g950), var(--g800));
+        padding: 48px;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      @media (min-width: 860px) {
+        .auth-left {
+          display: flex;
+        }
+      }
+      .auth-left::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url("./asset/futsal photo.avif") center/cover;
+        opacity: 0.13;
+      }
+      .al-logo {
+        font-family: var(--fd);
+        font-size: 36px;
+        color: #86efac;
+        letter-spacing: 1px;
+        position: relative;
+        z-index: 1;
+        text-decoration: none;
+      }
+      .al-perks {
+        position: relative;
+        z-index: 1;
+      }
+      .al-perks .perk-label {
+        font-size: 11px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+        margin-bottom: 20px;
+      }
+      .al-perks ul {
+        list-style: none;
+      }
+      .al-perks ul li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 15px;
+        margin-bottom: 16px;
+      }
+      .al-perks ul li i {
+        color: var(--g400);
+      }
+
+      .auth-right {
+        flex: 0 0 500px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 44px 40px;
+        background: #fff;
+      }
+      @media (max-width: 860px) {
+        .auth-right {
+          flex: 1;
+        }
+      }
+
+      .auth-box {
+        width: 100%;
+        max-width: 380px;
+      }
+      .auth-box .top-logo {
+        font-family: var(--fd);
+        font-size: 32px;
+        color: var(--g700);
+        display: block;
+        text-decoration: none;
+        margin-bottom: 24px;
+      }
+      .auth-box h2 {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--gray900);
+        margin-bottom: 6px;
+      }
+      .auth-box .sub {
+        font-size: 14px;
+        color: var(--gray500);
+        margin-bottom: 28px;
+      }
+
+      .field {
+        margin-bottom: 16px;
+      }
+      .field label {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--gray700);
+        margin-bottom: 5px;
+      }
+      .input-wrap {
+        position: relative;
+      }
+      .input-wrap input {
+        width: 100%;
+        padding: 11px 14px 11px 42px;
+        border: 1.5px solid var(--gray200);
+        border-radius: var(--r-md);
+        font-family: var(--fb);
+        font-size: 15px;
+        color: var(--gray900);
+        background: var(--gray50);
+        outline: none;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+      .input-wrap input:focus {
+        border-color: var(--g500);
+        box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
+        background: #fff;
+      }
+      .input-wrap .ico {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--gray400);
+        font-size: 14px;
+        pointer-events: none;
+      }
+      .input-wrap .eye {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--gray400);
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      /* Strength */
+      .strength {
+        margin-top: 7px;
+      }
+      .str-bars {
+        display: flex;
+        gap: 4px;
+      }
+      .str-bar {
+        flex: 1;
+        height: 3px;
+        border-radius: 2px;
+        background: var(--gray200);
+        transition: background 0.3s;
+      }
+      .str-bar.weak {
+        background: #ef4444;
+      }
+      .str-bar.medium {
+        background: var(--warning);
+      }
+      .str-bar.strong {
+        background: var(--g500);
+      }
+      .str-label {
+        font-size: 11px;
+        color: var(--gray400);
+        margin-top: 4px;
+      }
+
+      .err {
+        display: none;
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        border-radius: var(--r-md);
+        padding: 10px 14px;
+        font-size: 13px;
+        color: #b91c1c;
+        margin-bottom: 14px;
+        gap: 8px;
+        align-items: center;
+      }
+      .err.show {
+        display: flex;
+      }
+      .succ {
+        display: none;
+        background: var(--g50);
+        border: 1px solid var(--g200);
+        border-radius: var(--r-md);
+        padding: 10px 14px;
+        font-size: 13px;
+        color: var(--g800);
+        margin-bottom: 14px;
+        gap: 8px;
+        align-items: center;
+      }
+      .succ.show {
+        display: flex;
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 13px;
+        background: var(--g600);
+        color: #fff;
+        border: none;
+        border-radius: var(--r-md);
+        font-family: var(--fb);
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          transform 0.2s,
+          box-shadow 0.2s;
+        margin-top: 8px;
+      }
+      .submit-btn:hover {
+        background: var(--g700);
+        transform: translateY(-2px);
+        box-shadow: var(--sh-g);
+      }
+      .alt-link {
+        text-align: center;
+        font-size: 13px;
+        color: var(--gray500);
+        margin-top: 16px;
+      }
+      .alt-link a {
+        color: var(--g700);
+        font-weight: 600;
+        text-decoration: none;
+      }
+      .back {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 14px;
+        font-size: 12px;
+        color: var(--gray400);
+        text-decoration: none;
+      }
+      .back:hover {
+        color: var(--g600);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="auth-left">
+      <a href="index.html" class="al-logo">CourtCraze</a>
+      <div class="al-perks">
+        <p class="perk-label">What you get</p>
+        <ul>
+          <li><i class="fas fa-bolt"></i> Instant court booking, 24/7</li>
+          <li><i class="fas fa-coins"></i> CrazeCoins for every session</li>
+          <li>
+            <i class="fas fa-chart-line"></i> Personal stats & leaderboard
+          </li>
+          <li><i class="fas fa-star"></i> Exclusive member rewards</li>
+          <li><i class="fas fa-shield-halved"></i> Secure & private booking</li>
+        </ul>
       </div>
+    </div>
 
-      <div class="input-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" placeholder="Enter your email" required>
+    <div class="auth-right">
+      <div class="auth-box">
+        <a href="index.html" class="top-logo">CourtCraze</a>
+        <h2>Join CourtCraze</h2>
+        <p class="sub">Create your account and start booking courts today.</p>
+
+        <div class="err" id="errMsg"></div>
+        <div class="succ" id="succMsg">
+          <i class="fas fa-check-circle" style="color: var(--g600)"></i> Account
+          created!
+          <a
+            href="login.html"
+            style="color: var(--g700); font-weight: 600; text-decoration: none"
+            >Log in now →</a
+          >
+        </div>
+
+        <form id="regForm" novalidate>
+          <div class="field">
+            <label for="name">Full Name</label>
+            <div class="input-wrap">
+              <i class="fas fa-user ico"></i>
+              <input
+                type="text"
+                id="name"
+                placeholder="Your full name"
+                required
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="email">Email Address</label>
+            <div class="input-wrap">
+              <i class="fas fa-envelope ico"></i>
+              <input
+                type="email"
+                id="email"
+                placeholder="you@email.com"
+                required
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="input-wrap">
+              <i class="fas fa-lock ico"></i>
+              <input
+                type="password"
+                id="password"
+                placeholder="Create a password"
+                required
+                oninput="checkStr(this.value)"
+              />
+              <i
+                class="fas fa-eye eye"
+                onclick="togglePw('password', this)"
+              ></i>
+            </div>
+            <div class="strength">
+              <div class="str-bars">
+                <div class="str-bar" id="b1"></div>
+                <div class="str-bar" id="b2"></div>
+                <div class="str-bar" id="b3"></div>
+                <div class="str-bar" id="b4"></div>
+              </div>
+              <div class="str-label" id="strLabel">Enter a password</div>
+            </div>
+          </div>
+          <div class="field">
+            <label for="confirm">Confirm Password</label>
+            <div class="input-wrap">
+              <i class="fas fa-lock ico"></i>
+              <input
+                type="password"
+                id="confirm"
+                placeholder="Repeat your password"
+                required
+              />
+              <i class="fas fa-eye eye" onclick="togglePw('confirm', this)"></i>
+            </div>
+          </div>
+          <button type="submit" class="submit-btn">Create Account</button>
+        </form>
+
+        <p class="alt-link">
+          Already have an account? <a href="login.html">Sign in</a>
+        </p>
+        <div style="text-align: center">
+          <a href="index.html" class="back"
+            ><i class="fas fa-arrow-left"></i> Back to Home</a
+          >
+        </div>
       </div>
+    </div>
 
-      <div class="input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Create a password" required>
-      </div>
-
-      <div class="input-group">
-        <label for="confirm-password">Confirm Password</label>
-        <input type="password" id="confirm-password" placeholder="Confirm your password" required>
-      </div>
-
-      <button type="submit">Create Account</button>
-
-      <p class="signin-text">Already have an account? <a href="login.html">Sign in</a></p>
-      <a class="home-link" href="index.html">← Back to Home</a>
-    </form>
-  </div>
-</body>
+    <script>
+      function togglePw(id, icon) {
+        const el = document.getElementById(id);
+        const show = el.type === "password";
+        el.type = show ? "text" : "password";
+        icon.className = (show ? "fas fa-eye-slash" : "fas fa-eye") + " eye";
+      }
+      function checkStr(v) {
+        let s = 0;
+        if (v.length >= 8) s++;
+        if (/[A-Z]/.test(v)) s++;
+        if (/[0-9]/.test(v)) s++;
+        if (/[^A-Za-z0-9]/.test(v)) s++;
+        const cls = s <= 1 ? "weak" : s <= 2 ? "medium" : "strong";
+        ["b1", "b2", "b3", "b4"].forEach((id, i) => {
+          const el = document.getElementById(id);
+          el.className = "str-bar";
+          if (i < s) el.classList.add(cls);
+        });
+        document.getElementById("strLabel").textContent = [
+          "Enter a password",
+          "Weak — too short",
+          "Fair — add numbers",
+          "Good — almost there",
+          "Strong password",
+        ][s];
+      }
+      document
+        .getElementById("regForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const name = document.getElementById("name").value.trim();
+          const email = document.getElementById("email").value.trim();
+          const pw = document.getElementById("password").value;
+          const cf = document.getElementById("confirm").value;
+          const err = document.getElementById("errMsg");
+          const ok = document.getElementById("succMsg");
+          err.classList.remove("show");
+          ok.classList.remove("show");
+          if (!name || !email || !pw || !cf) {
+            err.innerHTML = "Please fill in all fields.";
+            return err.classList.add("show");
+          }
+          if (pw !== cf) {
+            err.innerHTML = "Passwords do not match.";
+            return err.classList.add("show");
+          }
+          if (pw.length < 6) {
+            err.innerHTML = "Password must be at least 6 characters.";
+            return err.classList.add("show");
+          }
+          sessionStorage.setItem("cc_user", JSON.stringify({ name, email }));
+          ok.classList.add("show");
+          setTimeout(() => (window.location.href = "login.html"), 1800);
+        });
+    </script>
+  </body>
 </html>

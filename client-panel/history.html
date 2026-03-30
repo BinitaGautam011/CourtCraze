@@ -1,148 +1,626 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Booking History</title>
-  <link rel="stylesheet" href="history.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booking History | CourtCraze</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../shared.css" />
+    <style>
+      body {
+        padding-top: 82px;
+        background: var(--gray50);
+      }
+      .wrap {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 32px 24px 80px;
+      }
+      .page-title {
+        font-family: var(--fd);
+        font-size: 40px;
+        letter-spacing: 1px;
+        color: var(--gray900);
+        margin-bottom: 4px;
+      }
+      .page-sub {
+        font-size: 15px;
+        color: var(--gray500);
+        margin-bottom: 28px;
+      }
 
-  <!-- Dummy anchors to prevent scroll jumps -->
-  <div id="upcoming-anchor" class="tab-anchor"></div>
-  <div id="past-anchor" class="tab-anchor"></div>
-  <div id="cancelled-anchor" class="tab-anchor"></div>
+      /* Summary stats */
+      .hist-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 14px;
+        margin-bottom: 28px;
+      }
+      .hs {
+        background: #fff;
+        border-radius: var(--r-lg);
+        border: 1px solid var(--gray100);
+        padding: 18px 20px;
+        box-shadow: var(--sh-sm);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .hs-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
+        flex-shrink: 0;
+      }
+      .hs-green {
+        background: var(--g100);
+        color: var(--g700);
+      }
+      .hs-blue {
+        background: #dbeafe;
+        color: #1d4ed8;
+      }
+      .hs-yellow {
+        background: #fef3c7;
+        color: #b45309;
+      }
+      .hs-red {
+        background: #fee2e2;
+        color: #b91c1c;
+      }
+      .hs-val {
+        font-family: var(--fd);
+        font-size: 30px;
+        color: var(--gray900);
+        line-height: 1;
+      }
+      .hs-lbl {
+        font-size: 12px;
+        color: var(--gray400);
+        margin-top: 1px;
+      }
 
-  <!-- Navbar -->
-  <div class="navbar">
-    <a class="dash" href="dashboard.html">Dashboard</a>
-    <div class="link">
-      <a href="Book.html">Book</a>
-      <a href="history.html">History</a>
-      <a href="reward.html">Rewards</a>
-      <a href="rating.html">Review & Rating</a>
-    </div>
-    </div>
-  <!-- Main content -->
-  <main>
-    <div class="container">
-      <h1>Booking History</h1>
-      <p class="subtext">Review your past games and manage upcoming ones.</p>
+      /* Tabs */
+      .tabs {
+        display: flex;
+        gap: 4px;
+        background: #fff;
+        border-radius: var(--r-lg);
+        padding: 5px;
+        border: 1px solid var(--gray100);
+        box-shadow: var(--sh-sm);
+        margin-bottom: 22px;
+        width: fit-content;
+      }
+      .tab {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 9px 18px;
+        border: none;
+        border-radius: var(--r-md);
+        background: transparent;
+        font-family: var(--fb);
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--gray500);
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .tab:hover {
+        color: var(--gray800);
+        background: var(--gray50);
+      }
+      .tab.active {
+        background: var(--g600);
+        color: #fff;
+      }
+      .tab .cnt {
+        font-size: 11px;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 1px 7px;
+        border-radius: 10px;
+      }
+      .tab:not(.active) .cnt {
+        background: var(--gray100);
+        color: var(--gray500);
+      }
+
+      /* Content */
+      .tab-pane {
+        display: none;
+        animation: fadeUp 0.28s ease;
+      }
+      .tab-pane.active {
+        display: block;
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .panel {
+        background: #fff;
+        border-radius: var(--r-lg);
+        border: 1px solid var(--gray100);
+        box-shadow: var(--sh-sm);
+        overflow: hidden;
+      }
+
+      /* Table */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        color: var(--gray400);
+        padding: 11px 18px;
+        text-align: left;
+        background: var(--gray50);
+        border-bottom: 1px solid var(--gray100);
+      }
+      td {
+        padding: 14px 18px;
+        font-size: 14px;
+        color: var(--gray700);
+        border-bottom: 1px solid var(--gray100);
+        vertical-align: middle;
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      tr:hover td {
+        background: var(--g50);
+      }
+      .td-time {
+        font-size: 12px;
+        color: var(--g600);
+        font-weight: 500;
+        margin-top: 3px;
+      }
+      .venue {
+        font-weight: 500;
+        color: var(--gray900);
+      }
+      .court-sm {
+        font-size: 12px;
+        color: var(--gray400);
+        margin-top: 2px;
+      }
+
+      /* Action buttons */
+      .abtn {
+        padding: 7px 14px;
+        border: none;
+        border-radius: var(--r-md);
+        font-family: var(--fb);
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-decoration: none;
+        display: inline-block;
+      }
+      .abtn-cancel {
+        background: #fee2e2;
+        color: #b91c1c;
+      }
+      .abtn-cancel:hover {
+        background: #fca5a5;
+      }
+      .abtn-review {
+        background: #dbeafe;
+        color: #1d4ed8;
+      }
+      .abtn-review:hover {
+        background: #bfdbfe;
+      }
+      .abtn-rebook {
+        background: var(--g50);
+        color: var(--g700);
+        border: 1px solid var(--g200);
+      }
+      .abtn-rebook:hover {
+        background: var(--g100);
+      }
+
+      /* Empty state */
+      .empty {
+        text-align: center;
+        padding: 56px 20px;
+      }
+      .empty i {
+        font-size: 40px;
+        color: var(--gray200);
+        margin-bottom: 14px;
+      }
+      .empty p {
+        font-size: 15px;
+        color: var(--gray400);
+      }
+
+      /* Confirm cancel modal */
+      .modal-bg {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 300;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal-bg.open {
+        display: flex;
+      }
+      .modal {
+        background: #fff;
+        border-radius: var(--r-xl);
+        padding: 34px 32px;
+        max-width: 360px;
+        width: 92%;
+        text-align: center;
+        box-shadow: var(--sh-lg);
+        animation: pop 0.25s ease;
+      }
+      @keyframes pop {
+        from {
+          transform: scale(0.85);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .modal h3 {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--gray900);
+        margin-bottom: 10px;
+      }
+      .modal p {
+        font-size: 14px;
+        color: var(--gray500);
+        margin-bottom: 22px;
+      }
+      .modal-btns {
+        display: flex;
+        gap: 10px;
+      }
+      .modal-btns button {
+        flex: 1;
+        padding: 11px;
+        border: none;
+        border-radius: var(--r-md);
+        font-family: var(--fb);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .mbtn-keep {
+        background: var(--gray100);
+        color: var(--gray700);
+      }
+      .mbtn-keep:hover {
+        background: var(--gray200);
+      }
+      .mbtn-cancel {
+        background: var(--danger);
+        color: #fff;
+      }
+      .mbtn-cancel:hover {
+        background: #dc2626;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1 class="page-title">Booking History</h1>
+      <p class="page-sub">
+        Review your past sessions and manage upcoming ones.
+      </p>
+
+      <!-- Stats -->
+      <div class="hist-stats">
+        <div class="hs">
+          <div class="hs-icon hs-green">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <div>
+            <div class="hs-val">12</div>
+            <div class="hs-lbl">Total Bookings</div>
+          </div>
+        </div>
+        <div class="hs">
+          <div class="hs-icon hs-blue"><i class="fas fa-clock"></i></div>
+          <div>
+            <div class="hs-val">3</div>
+            <div class="hs-lbl">Upcoming</div>
+          </div>
+        </div>
+        <div class="hs">
+          <div class="hs-icon hs-yellow"><i class="fas fa-coins"></i></div>
+          <div>
+            <div class="hs-val">120</div>
+            <div class="hs-lbl">Coins Earned</div>
+          </div>
+        </div>
+        <div class="hs">
+          <div class="hs-icon hs-red"><i class="fas fa-times-circle"></i></div>
+          <div>
+            <div class="hs-val">1</div>
+            <div class="hs-lbl">Cancelled</div>
+          </div>
+        </div>
+      </div>
 
       <!-- Tabs -->
       <div class="tabs">
-        <a href="#upcoming-anchor" class="tab">Upcoming</a>
-        <a href="#past-anchor" class="tab">Past</a>
-        <a href="#cancelled-anchor" class="tab">Cancelled</a>
+        <button class="tab active" data-tab="upcoming">
+          <i class="fas fa-bolt"></i> Upcoming <span class="cnt">3</span>
+        </button>
+        <button class="tab" data-tab="past">
+          <i class="fas fa-history"></i> Past <span class="cnt">8</span>
+        </button>
+        <button class="tab" data-tab="cancelled">
+          <i class="fas fa-times-circle"></i> Cancelled
+          <span class="cnt">1</span>
+        </button>
       </div>
 
-      <!-- Upcoming Tab Content (Visible by default) -->
-      <div class="tab-content" id="upcoming" style="display: block;">
-        <table>
-          <thead>
-            <tr>
-              <th>Date & Time</th>
-              <th>Venue</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>June 25, 2024<br><span class="time">7:00 PM</span></td>
-              <td>Urban Soccer Park<br><span class="court">Court 1</span></td>
-              <td><span class="badge upcoming">Upcoming</span></td>
-              <td><button class="btn cancel">Cancel</button></td>
-            </tr>
-            <tr>
-              <td>July 2, 2024<br><span class="time">8:00 PM</span></td>
-              <td>Downtown Futsal<br><span class="court">Court A</span></td>
-              <td><span class="badge upcoming">Upcoming</span></td>
-              <td><button class="btn cancel">Cancel</button></td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Upcoming -->
+      <div class="tab-pane active" id="pane-upcoming">
+        <div class="panel">
+          <table>
+            <thead>
+              <tr>
+                <th>Date & Time</th>
+                <th>Venue</th>
+                <th>Court</th>
+                <th>Duration</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-upcoming">
+              <tr>
+                <td>
+                  Tomorrow, Jun 25
+                  <div class="td-time">6:00 PM · 1 hr</div>
+                </td>
+                <td><div class="venue">Urban Soccer Park</div></td>
+                <td><div class="court-sm">Court A</div></td>
+                <td>1 hr</td>
+                <td><span class="badge badge-green">Upcoming</span></td>
+                <td>
+                  <button class="abtn abtn-cancel" onclick="askCancel(this)">
+                    Cancel
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Jul 2, 2025
+                  <div class="td-time">8:00 PM · 1 hr</div>
+                </td>
+                <td><div class="venue">Downtown Futsal</div></td>
+                <td><div class="court-sm">Court B</div></td>
+                <td>1 hr</td>
+                <td><span class="badge badge-green">Upcoming</span></td>
+                <td>
+                  <button class="abtn abtn-cancel" onclick="askCancel(this)">
+                    Cancel
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Jul 4, 2025
+                  <div class="td-time">7:00 PM · 1 hr</div>
+                </td>
+                <td><div class="venue">CourtCraze Main</div></td>
+                <td><div class="court-sm">Court C</div></td>
+                <td>1 hr</td>
+                <td><span class="badge badge-green">Upcoming</span></td>
+                <td>
+                  <button class="abtn abtn-cancel" onclick="askCancel(this)">
+                    Cancel
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <!-- Past Tab Content -->
-      <div class="tab-content" id="past">
-        <table>
-          <thead>
-            <tr>
-              <th>Date & Time</th>
-              <th>Venue</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>June 18, 2024<br><span class="time">6:00 PM</span></td>
-              <td>City Sports Center<br><span class="court">Main Court</span></td>
-              <td><span class="badge past">Past</span></td>
-              <td><button class="btn review">Leave Review</button></td>
-            </tr>
-            <tr>
-              <td>June 1, 2024<br><span class="time">9:00 AM</span></td>
-              <td>Urban Soccer Park<br><span class="court">Court 2</span></td>
-              <td><span class="badge past">Past</span></td>
-              <td><button class="btn review">Leave Review</button></td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Past -->
+      <div class="tab-pane" id="pane-past">
+        <div class="panel">
+          <table>
+            <thead>
+              <tr>
+                <th>Date & Time</th>
+                <th>Venue</th>
+                <th>Court</th>
+                <th>Duration</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  Jun 18, 2025
+                  <div class="td-time">6:00 PM</div>
+                </td>
+                <td><div class="venue">City Sports Center</div></td>
+                <td><div class="court-sm">Main Court</div></td>
+                <td>1 hr</td>
+                <td><span class="badge badge-gray">Completed</span></td>
+                <td>
+                  <a href="rating.html" class="abtn abtn-review">Review</a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Jun 1, 2025
+                  <div class="td-time">9:00 AM</div>
+                </td>
+                <td><div class="venue">Urban Soccer Park</div></td>
+                <td><div class="court-sm">Court 2</div></td>
+                <td>1 hr</td>
+                <td><span class="badge badge-gray">Completed</span></td>
+                <td>
+                  <a href="rating.html" class="abtn abtn-review">Review</a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  May 22, 2025
+                  <div class="td-time">5:00 PM</div>
+                </td>
+                <td><div class="venue">CourtCraze Main</div></td>
+                <td><div class="court-sm">Court A</div></td>
+                <td>2 hrs</td>
+                <td><span class="badge badge-gray">Completed</span></td>
+                <td>
+                  <a href="Book.html" class="abtn abtn-rebook"
+                    ><i class="fas fa-rotate-right"></i> Rebook</a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  May 10, 2025
+                  <div class="td-time">7:00 PM</div>
+                </td>
+                <td><div class="venue">Downtown Futsal</div></td>
+                <td><div class="court-sm">Court B</div></td>
+                <td>1 hr</td>
+                <td><span class="badge badge-gray">Completed</span></td>
+                <td>
+                  <a href="rating.html" class="abtn abtn-review">Review</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <!-- Cancelled Tab Content -->
-      <div class="tab-content" id="cancelled">
-        <table>
-          <thead>
-            <tr>
-              <th>Date & Time</th>
-              <th>Venue</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>May 20, 2024<br><span class="time">7:00 PM</span></td>
-              <td>Downtown Futsal<br><span class="court">Court B</span></td>
-              <td><span class="badge cancelled">Cancelled</span></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Cancelled -->
+      <div class="tab-pane" id="pane-cancelled">
+        <div class="panel">
+          <table>
+            <thead>
+              <tr>
+                <th>Date & Time</th>
+                <th>Venue</th>
+                <th>Court</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-cancelled">
+              <tr>
+                <td>
+                  May 20, 2025
+                  <div class="td-time">7:00 PM</div>
+                </td>
+                <td><div class="venue">Downtown Futsal</div></td>
+                <td><div class="court-sm">Court B</div></td>
+                <td><span class="badge badge-red">Cancelled</span></td>
+                <td><a href="Book.html" class="abtn abtn-rebook">Rebook</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </main>
 
-   <!--footer-->
-    <footer class="footer">
-  <div class="footer-container">
-    <div class="footer-section brand">
-      <h2>CourtCraze</h2>
-      <p>Premium futsal experience in the heart of the city. Where passion meets precision.</p>
+    <!-- Cancel Confirmation Modal -->
+    <div class="modal-bg" id="cancelModal">
+      <div class="modal">
+        <div style="font-size: 40px; color: var(--danger); margin-bottom: 14px">
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <h3>Cancel Booking?</h3>
+        <p>
+          This will free up your time slot. You'll lose the reservation but
+          won't be charged any additional fees.
+        </p>
+        <div class="modal-btns">
+          <button class="mbtn-keep" onclick="closeCancel()">Keep It</button>
+          <button class="mbtn-cancel" onclick="confirmCancel()">
+            Yes, Cancel
+          </button>
+        </div>
+      </div>
     </div>
 
-    <div class="footer-section contact">
-      <h3>Contact Info</h3>
-      <p><i class="fas fa-map-marker-alt"></i> BSOA , Bhaktapur District</p>
-      <p><i class="fas fa-phone"></i> 9744556763</p>
-      <p><i class="fas fa-envelope"></i> info@courtcraze.com</p>
-    </div>
+    <div id="site-footer"></div>
+    <script src="../shared.js"></script>
+    <script>
+      // Tabs
+      document.querySelectorAll(".tab").forEach((tab) => {
+        tab.addEventListener("click", () => {
+          document
+            .querySelectorAll(".tab")
+            .forEach((t) => t.classList.remove("active"));
+          document
+            .querySelectorAll(".tab-pane")
+            .forEach((p) => p.classList.remove("active"));
+          tab.classList.add("active");
+          document
+            .getElementById("pane-" + tab.dataset.tab)
+            .classList.add("active");
+        });
+      });
 
-    <div class="footer-section hours">
-      <h3>Operating Hours</h3>
-      <p><strong>Mon - Fri:</strong> 7:00 AM - 06:00 PM</p>
-      <p><strong>Sat - Sun:</strong> 6:00 AM - 07:00 AM</p>
-    </div>
-  </div>
-
-  <div class="footer-bottom">
-    <p>© 2024 CourtCraze. Crafted with excellence for champions.</p>
-  </div>
-</footer>
-
-
-</body>
+      // Cancel flow
+      let rowToCancel = null;
+      function askCancel(btn) {
+        rowToCancel = btn.closest("tr");
+        document.getElementById("cancelModal").classList.add("open");
+      }
+      function closeCancel() {
+        document.getElementById("cancelModal").classList.remove("open");
+        rowToCancel = null;
+      }
+      function confirmCancel() {
+        if (!rowToCancel) return;
+        rowToCancel.style.transition = "opacity .4s";
+        rowToCancel.style.opacity = "0";
+        setTimeout(() => {
+          rowToCancel.remove();
+          closeCancel();
+          // Add entry to cancelled table
+          const row = document.createElement("tr");
+          row.innerHTML = `<td>Cancelled slot<div class="td-time">Just now</div></td><td><div class="venue">—</div></td><td><div class="court-sm">—</div></td><td><span class="badge badge-red">Cancelled</span></td><td><a href="Book.html" class="abtn abtn-rebook">Rebook</a></td>`;
+          document.getElementById("tbody-cancelled").prepend(row);
+        }, 400);
+      }
+    </script>
+  </body>
 </html>
